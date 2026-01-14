@@ -3,6 +3,8 @@ import axios from "axios";
 import RegistrationPopup from "@/components/RegistrationPopup";
 import Loader from "@/components/Loader";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 export default function UpcomingEvent() {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ export default function UpcomingEvent() {
   // Fetch upcoming event from backend
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/events/upcoming")
+      .get(`${API_URL}/events/upcoming`)
       .then((res) => {
         setEvent(res.data);
         setLoading(false);

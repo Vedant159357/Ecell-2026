@@ -32,6 +32,7 @@ function Modal({ open, setOpen, title, children }) {
 }
 
 const SECTIONS = ["Overview", "Events", "Team", "Guests", "Faculty"];
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function Admin() {
   const [activeSection, setActiveSection] = useState("Overview");
@@ -52,10 +53,10 @@ export default function Admin() {
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      axios.get("http://localhost:5000/api/events"),
-      axios.get("http://localhost:5000/api/team"),
-      axios.get("http://localhost:5000/api/guests"),
-      axios.get("http://localhost:5000/api/faculty"),
+      axios.get(`${API_URL}/events`),
+      axios.get(`${API_URL}/team`),
+      axios.get(`${API_URL}/guests`),
+      axios.get(`${API_URL}/faculty`),
     ])
       .then(([eventsRes, teamRes, guestsRes, facultyRes]) => {
         setEvents(eventsRes.data || []);
@@ -83,7 +84,7 @@ export default function Admin() {
     e.preventDefault();
     try {
       if (modalEntity === "event") {
-        const res = await axios.post("http://localhost:5000/api/events", {
+        const res = await axios.post(`${API_URL}/events`, {
           title: formData.title,
           description: formData.description,
           shortDescription: formData.shortDescription,
@@ -96,7 +97,7 @@ export default function Admin() {
       }
 
       if (modalEntity === "team") {
-        const res = await axios.post("http://localhost:5000/api/team", {
+        const res = await axios.post(`${API_URL}/team`, {
           name: formData.name,
           role: formData.role,
           image: formData.image,
@@ -108,7 +109,7 @@ export default function Admin() {
       }
 
       if (modalEntity === "guest") {
-        const res = await axios.post("http://localhost:5000/api/guests", {
+        const res = await axios.post(`${API_URL}/guests`, {
           name: formData.name,
           role: formData.role,
           image: formData.image,
@@ -121,7 +122,7 @@ export default function Admin() {
       }
 
       if (modalEntity === "faculty") {
-        const res = await axios.post("http://localhost:5000/api/faculty", {
+        const res = await axios.post(`${API_URL}/faculty`, {
           name: formData.name,
           title: formData.title,
           department: formData.department,
@@ -144,19 +145,19 @@ export default function Admin() {
 
     try {
       if (entity === "event") {
-        await axios.delete(`http://localhost:5000/api/events/${id}`);
+        await axios.delete(`${API_URL}/events/${id}`);
         setEvents((prev) => prev.filter((e) => e._id !== id));
       }
       if (entity === "team") {
-        await axios.delete(`http://localhost:5000/api/team/${id}`);
+        await axios.delete(`${API_URL}/team/${id}`);
         setTeam((prev) => prev.filter((m) => m._id !== id));
       }
       if (entity === "guest") {
-        await axios.delete(`http://localhost:5000/api/guests/${id}`);
+        await axios.delete(`${API_URL}/guests/${id}`);
         setGuests((prev) => prev.filter((g) => g._id !== id));
       }
       if (entity === "faculty") {
-        await axios.delete(`http://localhost:5000/api/faculty/${id}`);
+        await axios.delete(`${API_URL}/faculty/${id}`);
         setFaculty((prev) => prev.filter((f) => f._id !== id));
       }
     } catch (err) {
@@ -605,11 +606,10 @@ export default function Admin() {
                 <button
                   key={sec}
                   onClick={() => setActiveSection(sec)}
-                  className={`block w-full text-left px-3 py-2 rounded-md text-sm ${
-                    activeSection === sec
+                  className={`block w-full text-left px-3 py-2 rounded-md text-sm ${activeSection === sec
                       ? "bg-[#00eaff]/20 text-[#00eaff]"
                       : "text-gray-300 hover:bg-white/5"
-                  }`}
+                    }`}
                 >
                   {sec}
                 </button>
@@ -642,12 +642,12 @@ export default function Admin() {
           modalEntity === "event"
             ? "Add Event"
             : modalEntity === "team"
-            ? "Add Team Member"
-            : modalEntity === "guest"
-            ? "Add Guest"
-            : modalEntity === "faculty"
-            ? "Add Faculty"
-            : ""
+              ? "Add Team Member"
+              : modalEntity === "guest"
+                ? "Add Guest"
+                : modalEntity === "faculty"
+                  ? "Add Faculty"
+                  : ""
         }
       >
         {renderModalContent()}
