@@ -7,7 +7,7 @@ import hero from "../assets/hero.jpg";
 
 export default function TitlePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
+
   // Replace this URL with your imported image variable
   // const bgImage = backgroundImage; // Use this if importing locally
   const bgImage = hero; // Current fallback
@@ -33,7 +33,7 @@ export default function TitlePage() {
       }}
     >
       {/* Background image with minimal opacity */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("${bgImage}")`,
@@ -54,7 +54,7 @@ export default function TitlePage() {
       <div className="absolute bottom-20 left-20 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
       {/* Mouse spotlight effect */}
-      <div 
+      <div
         className="absolute pointer-events-none transition-opacity duration-300"
         style={{
           left: mousePosition.x - 250,

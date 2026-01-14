@@ -37,9 +37,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Eachevent/:slug" element={<Eachevent />} />
-              <Route path="/Team"  element={<Team/>}/>
-              <Route path="/Gallery" element={<Gallery/>}/>
-              <Route path="/contact" element={<Contact/>}/>
+              <Route path="/Team" element={<Team />} />
+              <Route path="/Gallery" element={<Gallery />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
           </div>
           <Footer />

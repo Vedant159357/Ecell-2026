@@ -20,26 +20,22 @@ const TeamMemberCard = ({ member, index }) => {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#434343]/30 rounded-2xl overflow-hidden hover:border-[#434343]/60 transition-all duration-500 hover:scale-105 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
+      className={`bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#434343]/30 rounded-2xl overflow-hidden hover:border-[#434343]/60 transition-all duration-500 hover:scale-105 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
     >
       {/* Image with Hover Overlay */}
       <div className="relative h-64 overflow-hidden group">
         <img
           src={member.image}
           alt={member.name}
-          className={`w-full h-full object-cover object-center transition-all duration-700 ${
-            isHovered ? 'scale-110' : 'scale-100'
-          }`}
+          className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-110' : 'scale-100'} ${member.alignment || 'object-center'}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/30 to-transparent"></div>
-        
+
         {/* Social Icons Overlay - Shows on Hover */}
         <div
-          className={`absolute inset-0 bg-[#000000]/80 backdrop-blur-sm flex items-center justify-center gap-4 transition-all duration-300 ${
-            isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
+          className={`absolute inset-0 bg-[#000000]/80 backdrop-blur-sm flex items-center justify-center gap-4 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
         >
           <a
             href={member.linkedin}
@@ -129,9 +125,8 @@ export default function Team() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div
-            className={`text-center transition-all duration-1000 ${
-              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}
+            className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
               Our Team
@@ -148,11 +143,34 @@ export default function Team() {
       <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <SectionHeader title="Faculty Coordinators" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 max-w-6xl mx-auto">
-            {teamData.faculty.map((member, index) => (
+
+          {/* Hierarchy Layout */}
+
+          {/* 1. President */}
+          {teamData.faculty.filter(m => m.hierarchy === "president").map((member, index) => (
+            <div key={member.id} className="flex justify-center mb-10">
+              <div className="w-full max-w-sm">
+                <TeamMemberCard member={member} index={index} />
+              </div>
+            </div>
+          ))}
+
+          {/* 2. VP & Convener */}
+          <div className="flex flex-wrap justify-center gap-8 mb-10">
+            {teamData.faculty.filter(m => m.hierarchy === "vicePresident" || m.hierarchy === "convener").map((member, index) => (
+              <div key={member.id} className="w-full max-w-xs">
+                <TeamMemberCard member={member} index={index} />
+              </div>
+            ))}
+          </div>
+
+          {/* 3. Coordinators Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+            {teamData.faculty.filter(m => m.hierarchy === "coordinator").map((member, index) => (
               <TeamMemberCard key={member.id} member={member} index={index} />
             ))}
           </div>
+
         </div>
       </section>
 

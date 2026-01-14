@@ -20,30 +20,97 @@ import shantanu from "../assets/core-members/Shantanu Mapre.jpg";
 import ketan from "../assets/core-members/Ketan patil.jpg";
 import vedant from "../assets/core-members/Vedant Satpute.jpg";
 import rutu from "../assets/core-members/Rutuja Yelgate.jpg";
+
+// Faculty Images
+import boroleImg from "../assets/Co-ordinators/borole.jpeg";
+import daveImg from "../assets/Co-ordinators/ruchiDave.jpeg";
+import railkarImg from "../assets/Co-ordinators/Prailkar.jpeg";
+import nagtilakImg from "../assets/Co-ordinators/SNagtalik.jpeg";
+import ranjanImg from "../assets/Co-ordinators/prabhat.jpeg";
 export const teamData = {
   // Faculty/Mentors
   faculty: [
     {
       id: 1,
-      name: "Dr. Rajesh Kumar",
-      position: "Faculty Coordinator",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
-      linkedin: "https://linkedin.com/in/rajeshkumar"
+      name: "Dr. K. R. Borole",
+      position: "IIC President",
+      image: boroleImg,
+      linkedin: "#",
+      hierarchy: "president"
     },
     {
       id: 2,
-      name: "Prof. Priya Sharma",
-      position: "Innovation Mentor",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
-      linkedin: "https://linkedin.com/in/priyasharma"
+      name: "Prof. R. G. Dave",
+      position: "IIC Vice-President & Start-up Activity Coordinator",
+      image: daveImg,
+      linkedin: "#",
+      hierarchy: "vicePresident"
     },
     {
       id: 3,
-      name: "Dr. Rajesh Kumar",
-      position: "Faculty Coordinator",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
-      linkedin: "https://linkedin.com/in/rajeshkumar"
-    }
+      name: "Dr. P. N. Railkar",
+      position: "IIC Convener & Computer Dept. Coordinator",
+      image: railkarImg,
+      linkedin: "#",
+      hierarchy: "convener",
+      alignment: "object-top"
+    },
+    {
+      id: 4,
+      name: "Prof. S. A. Nagtilak",
+      position: "ARIIA Coordinator & IT Dept. Coordinator",
+      image: nagtilakImg,
+      linkedin: "#",
+      hierarchy: "coordinator"
+    },
+    {
+      id: 5,
+      name: "Dr. Prabhat Ranjan",
+      position: "IIC Member & Mechanical Dept. Coordinator",
+      image: ranjanImg,
+      linkedin: "#",
+      hierarchy: "coordinator"
+    },
+    {
+      id: 6,
+      name: "Prof. S.R. Patil",
+      position: "IPR Activity Coordinator & E&TC Dept. Coordinator",
+      image: "https://ui-avatars.com/api/?name=S+R+Patil&background=random", // Placeholder or use a local placeholder if available
+      linkedin: "#",
+      hierarchy: "coordinator"
+    },
+    {
+      id: 7,
+      name: "Dr. S. L. Charkha",
+      position: "Internship Activity Coordinator & MBA Dept. Coordinator",
+      image: "https://ui-avatars.com/api/?name=S+L+Charkha&background=random",
+      linkedin: "#",
+      hierarchy: "coordinator"
+    },
+    {
+      id: 8,
+      name: "Dr. G. S. Dave",
+      position: "Innovation Activity Coordinator",
+      image: "https://ui-avatars.com/api/?name=G+S+Dave&background=random",
+      linkedin: "#",
+      hierarchy: "coordinator"
+    },
+    {
+      id: 9,
+      name: "Prof. Ashish Dharme",
+      position: "Social Media Coordinator",
+      image: "https://ui-avatars.com/api/?name=Ashish+Dharme&background=random",
+      linkedin: "#",
+      hierarchy: "coordinator"
+    },
+    {
+      id: 10,
+      name: "Mrs. K. S. Borgave",
+      position: "NIRF Coordinator",
+      image: "https://ui-avatars.com/api/?name=K+S+Borgave&background=random",
+      linkedin: "#",
+      hierarchy: "coordinator"
+    },
   ],
 
   // Core Team Members
@@ -59,7 +126,7 @@ export const teamData = {
       id: 2,
       name: "Anjali Kumhar",
       position: "Vice President",
-      image:anjali,
+      image: anjali,
       linkedin: "https://linkedin.com/in/snehapatel"
     },
     {
@@ -80,10 +147,10 @@ export const teamData = {
       id: 5,
       name: "Ram Burange",
       position: "Tresurer",
-      image:ram,
+      image: ram,
       linkedin: "https://linkedin.com/in/vikramjoshi"
     },
-     {
+    {
       id: 6,
       name: "Shubham Sharma",
       position: "Tresurer",
@@ -105,7 +172,7 @@ export const teamData = {
       linkedin: "https://linkedin.com/in/riyakapoor"
     },
     {
-      id:9,
+      id: 9,
       name: "Jayesh Jadhav",
       position: "PR Head",
       image: jayesh,
@@ -125,67 +192,67 @@ export const teamData = {
       image: rutu,
       linkedin: "https://linkedin.com/in/riyakapoor"
     },
-    
+
     {
       id: 12,
       name: "Rajshri Dhage",
       position: "Sponsorship Head",
-      image:rajshri,
+      image: rajshri,
       linkedin: "https://linkedin.com/in/riyakapoor"
     },
     {
       id: 13,
       name: "Vedika Kharate",
       position: "Sponsorship Head",
-      image:vedika,
+      image: vedika,
       linkedin: "https://linkedin.com/in/riyakapoor"
     }
-    ,{
+    , {
       id: 14,
       name: "Ketan Patil",
       position: "Digital Media Head",
       image: ketan,
       linkedin: "https://linkedin.com/in/riyakapoor"
-    },{
+    }, {
       id: 15,
       name: "Aryan Agarwal",
       position: "Digital Media Head",
-      image:aryan,
+      image: aryan,
       linkedin: "https://linkedin.com/in/riyakapoor"
-    },{
+    }, {
       id: 16,
       name: "Ragini Devkar",
       position: "Administrative Affairs Head",
-      image:ragini ,
+      image: ragini,
       linkedin: "https://linkedin.com/in/riyakapoor"
-    },{
+    }, {
       id: 17,
       name: "Vedant Satpute",
       position: "Technical Head",
       image: vedant,
       linkedin: "https://linkedin.com/in/riyakapoor"
-    },{
+    }, {
       id: 18,
       name: "Shyam Talekar",
       position: "Technical Head",
       image: shyam,
       linkedin: "https://linkedin.com/in/riyakapoor"
-    },{
+    }, {
       id: 19,
       name: "Vinit Limkar",
       position: "Technical Head",
       image: vinit,
       linkedin: "https://linkedin.com/in/riyakapoor"
-    },{
+    }, {
       id: 20,
       name: "kaushal Masare",
       position: "Technical Head",
-      image:kaushal,
+      image: kaushal,
       linkedin: "https://linkedin.com/in/riyakapoor"
     }
   ],
 
-  
+
 };
 
 // Helper functions
@@ -193,7 +260,7 @@ export const getAllMembers = () => {
   return {
     faculty: teamData.faculty,
     coreTeam: teamData.coreTeam,
-   
+
   };
 };
 
