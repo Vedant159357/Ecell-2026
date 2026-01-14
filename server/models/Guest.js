@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const guestSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    role: { type: String },
+    role: { type: String }, // e.g. "Keynote Speaker"
     image: { type: String },
     linkedin: { type: String },
     instagram: { type: String },
@@ -13,4 +13,4 @@ const guestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Guest", guestSchema);
+module.exports = mongoose.model("Guest", guestSchema);

@@ -1,17 +1,12 @@
 const express = require("express");
 const Event = require("../models/Event");
+const checkAuth = require("../middleware/auth"); // 1. IMPORT MIDDLEWARE
 
 const router = express.Router();
 
-// CREATE event
-router.post("/", async (req, res) => {
-  try {
-    const event = await Event.create(req.body);
-    res.json(event);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+// ---------------------------------------------------
+// PUBLIC ROUTES (No Password Needed)
+// ---------------------------------------------------
 
 // GET all events
 router.get("/", async (req, res) => {
@@ -43,8 +38,24 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// ---------------------------------------------------
+// PROTECTED ROUTES (Require 'x-admin-key' Header)
+// ---------------------------------------------------
+
+// CREATE event
+router.post("/", checkAuth, async (req, res) => {
+  // Added checkAuth
+  try {
+    const event = await Event.create(req.body);
+    res.json(event);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // UPDATE event
-router.put("/:id", async (req, res) => {
+router.put("/:id", checkAuth, async (req, res) => {
+  // Added checkAuth
   try {
     const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -56,7 +67,8 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE event
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", checkAuth, async (req, res) => {
+  // Added checkAuth
   try {
     await Event.findByIdAndDelete(req.params.id);
     res.json({ message: "Event deleted" });

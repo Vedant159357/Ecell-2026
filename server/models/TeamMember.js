@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const teamMemberSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    role: { type: String },
+    role: { type: String }, // e.g. "Tech Lead"
     image: { type: String },
     linkedin: { type: String },
     instagram: { type: String },
@@ -12,4 +12,4 @@ const teamMemberSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("TeamMember", teamMemberSchema);
+module.exports = mongoose.model("TeamMember", teamMemberSchema);
