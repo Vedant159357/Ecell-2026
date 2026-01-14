@@ -1,11 +1,11 @@
-
-const imageCount = 19; // 
+//this accessingg data from the event images whixh are saved as 1.jpg,2.jpg likethi 
+const imageCount = 10; 
 
 const photos = Array.from({ length: imageCount }, (_, i) => 
-  `/gallery/${i + 1}.JPG`
+  `/gallery/${i + 1}.jpg`
 );
 
-// Debug: Log all photo paths
+
 console.log('Total photos to load:', imageCount);
 console.log('All photo paths:', photos);
 

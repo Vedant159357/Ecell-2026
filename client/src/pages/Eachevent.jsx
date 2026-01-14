@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getEventBySlug } from '../data/eventsData';
+import { getEventBySlug } from '../data/eventsdata';
 import { useState } from 'react';
 import { ArrowLeft, Calendar, MapPin, Users, Award } from 'lucide-react';
 
@@ -35,7 +35,7 @@ function Eachevent() {
           alt={event.title}
           className="w-full h-full object-cover"
         />
-        {/* Lighter gradient overlay - only at bottom for text readability */}
+        {/* Lighter gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/90 via-transparent to-transparent"></div>
         
         <div className="absolute inset-0 flex items-end">
@@ -68,7 +68,7 @@ function Eachevent() {
               key={index}
               className="bg-gradient-to-br from-[#434343]/50 to-[#000000]/50 border border-[#434343]/30 rounded-2xl p-6 text-center backdrop-blur-sm"
             >
-              {/* Icon (optional logic, simple + safe) */}
+              {/* Icon  */}
               {stat.label.toLowerCase().includes('participant') ? (
                 <Users className="mx-auto mb-2 text-white" size={32} />
               ) : (

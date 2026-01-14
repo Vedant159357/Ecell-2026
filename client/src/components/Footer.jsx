@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Facebook, ChevronRight } from 'lucide-react';
 
 export default function Footer() {
@@ -11,10 +12,10 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Facebook, href: '#', label: 'Facebook' }
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/ecell-skncoe', label: 'LinkedIn' },
+    { icon: Instagram, href: 'https://www.instagram.com/ecell_skncoe', label: 'Instagram' },
+    { icon: Twitter, href: 'https://twitter.com/ecell_skncoe', label: 'Twitter' },
+    { icon: Facebook, href: 'https://www.facebook.com/ecell.skncoe', label: 'Facebook' }
   ];
 
   return (
@@ -60,13 +61,13 @@ export default function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a 
-                    href={link.href}
+                  <Link 
+                    to={link.href}
                     className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                   >
                     <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-6 group-hover:ml-0 transition-all duration-300" />
                     <span>{link.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -111,7 +112,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Location</div>
-                  <div className="font-semibold">SKNCOE,vadgaon(BK)pune<br />Maharashtra, India</div>
+                  <div className="font-semibold">SKNCOE, Vadgaon (BK) Pune<br />Maharashtra, India</div>
                 </div>
               </div>
             </div>
@@ -126,6 +127,8 @@ export default function Footer() {
               <a
                 key={index}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={social.label}
                 className="w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 rounded-xl flex items-center justify-center transition-all duration-300 group"
               >
@@ -140,13 +143,13 @@ export default function Footer() {
               © {new Date().getFullYear()} E-Cell SKNCOE. All rights reserved.
             </p>
             <div className="flex items-center justify-center md:justify-end gap-4 mt-2">
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+              <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
                 Privacy Policy
-              </a>
+              </Link>
               <span className="text-gray-600">•</span>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+              <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
         </div>

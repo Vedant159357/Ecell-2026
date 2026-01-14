@@ -5,7 +5,7 @@
 const generateGallery = (slug, count) =>
   Array.from({ length: count }, (_, i) => ({
     id: i + 1,
-    url: `/events/${slug}/${i + 1}.jpg`,
+    url: `/event/${slug}/${i + 1}.jpg`,
     caption: `Event moment ${i + 1}`
   }));
 
@@ -24,8 +24,8 @@ export const eventsData = [
     date: "March 15-16, 2024",
     location: "Tech Campus, Main Auditorium",
 
-    image: "/events/econclave/hero.jpeg",
-    heroImage: "/events/econclave/hero.jpeg",
+    image: "/event/econclave/hero.jpg",
+    heroImage: "/event/econclave/hero.jpg",
 
     fullDescription: [
 "E-Conclave is the flagship and most prestigious event of E-Cell SKNCOE, designed to celebrate entrepreneurship, innovation, and leadership on a large scale. It brings together renowned speakers, industry experts, successful startup founders, investors, and enthusiastic participants from across Maharashtra, creating a vibrant ecosystem of ideas and inspiration. The event serves as a powerful platform where students and aspiring entrepreneurs gain first-hand exposure to the realities of the startup world. Through a well-curated mix of keynote sessions, panel discussions, startup pitching forums, and interactive workshops, E-Conclave enables participants to learn directly from real entrepreneurial journeys, understand current industry trends, and explore emerging technologies. Beyond learning, the event strongly emphasizes networking and collaboration, allowing attendees to connect with professionals, mentors, and like-minded innovators, thereby bridging the gap between ambition and execution and motivating young minds to take confident steps toward building impactful ventures."
@@ -54,10 +54,10 @@ export const eventsData = [
 
     organizers: ["E-Cell"],
     sponsors: [
-      "Tech Corp",
-      "Venture Capital Partners",
-      "Innovation Fund",
-      "StartupHub India"
+      "",
+      "",
+      "",
+      ""
     ]
   },
 
@@ -75,8 +75,8 @@ export const eventsData = [
     date: "9th & 10th Oct, 2025",
     location: "SIOM Auditorium, SKNCOE Campus",
 
-    image: "/events/Fusion/hero.jpg",
-    heroImage: "/events/Fusion/hero.jpg",
+    image: "/event/fusion/hero.jpg",
+    heroImage: "/event/fusion/hero.jpg",
 
     fullDescription: [
    "The Institution’s Innovation Council (IIC) – E-Cell of Smt. Kashibai Navale College of Engineering (SKNCOE), in collaboration with the IEEE Student Branch, successfully organised a National Level 24-Hour Hackathon – “Fusion”. This event aimed to encourage innovation, creativity, and problem-solving among students by providing a platform to develop real-world solutions using emerging technologies such as AI/ML, Cybersecurity, FinTech, BioTech, HealthTech, and Web3. The Hackathon marked a historic milestone as it was the first 24-hour overnight Hackathon conducted in Sinhgad Institutes, engaging brilliant minds from across Maharashtra and India."
@@ -97,7 +97,7 @@ export const eventsData = [
       { value: "7", label: "Domains" }
     ],
 
-    gallery: generateGallery("Fusion", 10),
+    gallery: generateGallery("fusion", 12),
 
     organizers: ["E-Cell", "IEEE SKNCOE"],
     sponsors: [
@@ -121,8 +121,8 @@ export const eventsData = [
     date: "May 10-12, 2024",
     location: "Old building Skncoe ,pune",
 
-    image: "/events/startup-sutra/hero.jpg",
-    heroImage: "/events/startup-sutra/hero.jpg",
+    image: "/event/startupsutra/hero.jpg",
+    heroImage: "/event/startupsutra/hero.jpg",
 
     fullDescription: [
      "Startup Sutra is a competitive, entrepreneurial event that provides a real-world startup pitching experience for aspiring founders. The event is centered around startup ideas, innovation, and business viability, where participants present their concepts before a panel of judges, mentors, and industry experts. Students compete by pitching their startup ideas, explaining their business models, target markets, revenue strategies, and growth potential. Startup Sutra challenges participants to think strategically, defend their ideas confidently, and adapt based on expert feedback. Through this competitive platform, the event simulates the pressures and expectations of the actual startup ecosystem, offering participants invaluable exposure to how startups are evaluated, refined, and scaled in the real world."
@@ -145,13 +145,13 @@ export const eventsData = [
       { value: "6", label: "Investors" }
     ],
 
-    gallery: generateGallery("startup-sutra", 6),
+    gallery: generateGallery("startupsutra", 11),
 
     organizers: [
       "Startup Cell",
       "Entrepreneurship Club"
     ],
-    sponsors: ["Accelerator X", "Angel Network", "Business School"]
+    sponsors: ["Growwmore", "Angel Network", "Business School"]
   },
 
   {
@@ -167,8 +167,8 @@ export const eventsData = [
     date: "June 5, 2024",
     location: "Main Auditorium",
 
-    image: "/events/aarambh/hero.jpg",
-    heroImage: "/events/aarambh/hero.jpg",
+    image: "/event/aarambh/hero.jpg",
+    heroImage: "/event/aarambh/hero.jpg",
 
     fullDescription: [
    "Aarambh marked the foundational beginning of E-Cell SKNCOE’s entrepreneurial journey, setting the stage for innovation, leadership, and startup culture within the institution. The event was designed to ignite curiosity and entrepreneurial thinking among students by introducing them to the fundamentals of entrepreneurship and the startup ecosystem. Through expert talks, interactive discussions, and experience-sharing sessions, Aarambh provided students with early exposure to how ideas evolve into ventures. The event emphasized motivation, awareness, and mindset-building, encouraging participants to explore innovation, leadership, and problem-solving while taking their first confident steps into the world of entrepreneurship."
@@ -192,13 +192,14 @@ export const eventsData = [
       { value: "35", label: "Startups" }
     ],
 
-    gallery: generateGallery("aarambh", 6),
+    gallery: generateGallery("aarambh", 10),
 
     organizers: ["E-Cell", "Startup Incubator"],
     sponsors: [
-      "Seed Fund",
-      "Angel Investors Network",
-      "Venture Partners"
+      "KD's Blackhoods Cafe",
+      "Cyberking Capitals",
+      "Khadad Punekar",
+      "Paradox Entertainment"
     ]
   },
 
@@ -206,6 +207,7 @@ export const eventsData = [
     id: 5,
     slug: "sinhgad-forum",
     title: "Sinhgad Forum",
+ description:      "Sinhgad Forum brought thought leaders together.",
     category: "Forum",
     highlight: "Leadership Talk",
 
@@ -214,8 +216,8 @@ export const eventsData = [
     date: "July 18, 2024",
     location: "Convention Hall",
 
-    image: "/events/sinhgad-forum/hero.jpg",
-    heroImage: "/events/sinhgad-forum/hero.jpg",
+    image: "/event/forum/hero.jpg",
+    heroImage: "/event/forum/hero.jpg",
 
     fullDescription: [
       "Sinhgad Forum brought thought leaders together.",
@@ -235,7 +237,7 @@ export const eventsData = [
       { value: "6", label: "Panels" }
     ],
 
-    gallery: generateGallery("sinhgad-forum", 6),
+    gallery: generateGallery("forum",10),
 
     organizers: [
       "Sinhgad Institutes",
@@ -250,7 +252,8 @@ export const eventsData = [
   }
 ];
 
-// Helper functions
+// Helperfunctions 
+
 export const getEventBySlug = (slug) =>
   eventsData.find((event) => event.slug === slug);
 
