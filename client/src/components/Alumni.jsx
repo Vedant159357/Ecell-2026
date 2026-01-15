@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Linkedin, Briefcase, TrendingUp, ExternalLink } from 'lucide-react';
-import vikaschaudhary from "../assets/vikash.png";
-import adeshkolhe from "../assets/Adeshkolhe.png"
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import vikaschaudhary from "../assets/vikash.avif";
+import adeshkolhe from "../assets/Adeshkolhe.avif"
+
 const alumniData = [
   {
     id: 1,
@@ -66,6 +68,33 @@ const alumniData = [
 const AlumniProfile = ({ alumni, index }) => {
   const [isVisible, setIsVisible] = useState(false);
 
+  // 3D tilt motion values
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
+  const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
+
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-12deg", "12deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseXPct = (e.clientX - rect.left) / width - 0.5;
+    const mouseYPct = (e.clientY - rect.top) / height - 0.5;
+
+    x.set(mouseXPct);
+    y.set(mouseYPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), index * 300);
     return () => clearTimeout(timer);
@@ -75,44 +104,61 @@ const AlumniProfile = ({ alumni, index }) => {
 
   return (
     <div
-      className={`relative transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-      }`}
+      className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+        }`}
     >
       <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 items-center`}>
-        
-        {/* Image Side */}
+
+        {/* Image Side with 3D Effect */}
         <div className="lg:w-1/2 relative">
-          <div className="relative">
-            {/* Decorative Background - No hover effect */}
+          <motion.div
+            style={{
+              perspective: 1000,
+            }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="relative cursor-pointer"
+          >
+            {/* Decorative Background - Static outer border */}
             <div className={`absolute inset-0 bg-gradient-to-br ${alumni.color} rounded-[3rem]`}></div>
-            
-            {/* Image Container */}
-            <div className="relative z-10 p-4">
+
+            {/* 3D Tilting Image Container */}
+            <motion.div
+              style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+              }}
+              className="relative z-10 p-4"
+            >
               <div className="relative overflow-hidden rounded-[2.5rem] border-4 border-[#434343]/30">
-                <img
+                <motion.img
+                  style={{ transform: "translateZ(40px)" }}
                   src={alumni.image}
                   alt={alumni.name}
                   className="w-full h-[500px] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-transparent"></div>
-                
-                {/* Name Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
+
+                {/* Name Overlay - Floating */}
+                <motion.div
+                  style={{ transform: "translateZ(60px)" }}
+                  className="absolute bottom-0 left-0 right-0 p-6"
+                >
                   <div className="inline-block px-4 py-2 bg-[#434343]/90 backdrop-blur-sm rounded-full mb-2">
                     <span className="text-white text-sm font-semibold">{alumni.company}</span>
                   </div>
                   <h3 className="text-4xl font-bold text-white mb-1">{alumni.name}</h3>
                   <p className="text-gray-300 text-lg">{alumni.role}</p>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Floating Badge */}
             <div className="absolute -top-4 -right-4 bg-[#434343] border-4 border-[#000000] rounded-2xl p-4 shadow-2xl z-20">
               <Briefcase size={32} className="text-white" />
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Content Side */}
@@ -127,21 +173,50 @@ const AlumniProfile = ({ alumni, index }) => {
             </div>
           </div>
 
-          {/* Journey Timeline - Static, No Animation */}
-          <div className="bg-gradient-to-br from-[#434343]/20 to-[#000000]/20 border border-[#434343]/30 rounded-2xl p-6 backdrop-blur-sm">
+          {/* Journey Timeline - Animated */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-gradient-to-br from-[#434343]/20 to-[#000000]/20 border border-[#434343]/30 rounded-2xl p-6 backdrop-blur-sm"
+          >
             <div className="flex items-center gap-2 mb-6">
               <TrendingUp size={20} className="text-[#434343]" />
               <h4 className="text-white font-bold text-lg">Journey Timeline</h4>
             </div>
 
-            <div className="space-y-6">
+            <div className="relative space-y-6">
+              {/* Animated White Progress Line */}
+              <motion.div
+                initial={{ height: 0 }}
+                whileInView={{ height: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
+                className="absolute left-0 top-0 w-0.5 bg-white z-10"
+                style={{ marginLeft: "7px" }}
+              />
+
+              {/* Gray Background Line */}
+              <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#434343]/30" style={{ marginLeft: "7px" }}></div>
+
               {alumni.journey.map((milestone, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="relative pl-8 border-l-2 border-[#434343]/30"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.5 + idx * 0.2 }}
+                  className="relative pl-8"
                 >
-                  {/* Timeline Dot */}
-                  <div className="absolute left-0 top-0 w-4 h-4 rounded-full bg-[#434343] border-2 border-[#000000] transform -translate-x-[9px]"></div>
+                  {/* Animated Timeline Dot */}
+                  <motion.div
+                    initial={{ backgroundColor: "#434343", scale: 1 }}
+                    whileInView={{ backgroundColor: "#ffffff", scale: 1.2 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.6 + idx * 0.2 }}
+                    className="absolute left-0 top-0 w-4 h-4 rounded-full border-2 border-[#000000] transform -translate-x-[9px]"
+                  ></motion.div>
 
                   {/* Year Badge */}
                   <div className="inline-block px-3 py-1 bg-[#434343] rounded-full text-xs font-bold text-white mb-2">
@@ -155,10 +230,10 @@ const AlumniProfile = ({ alumni, index }) => {
                   <p className="text-gray-400 text-sm leading-relaxed">
                     {milestone.desc}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Links */}
           <div className="flex gap-4">
@@ -205,7 +280,7 @@ export default function Alumni() {
 
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #000000 0%, #434343 100%)' }}>
-      
+
       {/* Hero Section */}
       <section className="relative py-20 px-6 overflow-hidden">
         <div className="absolute inset-0 opacity-5">
@@ -226,7 +301,7 @@ export default function Alumni() {
               </span>
               <div className="h-0.5 bg-gradient-to-r from-transparent via-[#434343] to-transparent mt-2"></div>
             </div>
-            
+
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 relative inline-block">
               Our Alumni
               <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#434343] to-transparent"></div>

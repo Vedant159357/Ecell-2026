@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Linkedin, Sparkles } from "lucide-react";
-import rajshamani from "../assets/Guest/Raj_Shamani_DSC00824_BG.jpg";
-import prajaktakoli from "../assets/Guest/prajakta koli.jpg";
-import pranitmore from "../assets/Guest/more pranit.jpg";
-import ishansharma from "../assets/Guest/ishan sharma.jpg";
-import ashish from "../assets/Guest/ashish bharatvanshi.jpg";
-import smonk from "../assets/Guest/radheshyam das.jpg";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import rajshamani from "../assets/Guest/Raj_Shamani_DSC00824_BG.avif";
+import prajaktakoli from "../assets/Guest/prajakta koli.avif";
+import pranitmore from "../assets/Guest/more pranit.avif";
+import ishansharma from "../assets/Guest/ishan sharma.avif";
+import ashish from "../assets/Guest/ashish bharatvanshi.avif";
+import smonk from "../assets/Guest/radheshyam das.avif";
+
 const teamMembers = [
   {
     id: 1,
@@ -57,87 +59,116 @@ const teamMembers = [
 
 // Team Member Card Component
 const TeamCard = ({ member, isActive }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Smooth spring animation for rotation
+  const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
+  const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
+
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseXPct = (e.clientX - rect.left) / width - 0.5;
+    const mouseYPct = (e.clientY - rect.top) / height - 0.5;
+
+    x.set(mouseXPct);
+    y.set(mouseYPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`relative transition-all duration-500 ${
-        isActive ? "scale-100 opacity-100" : "scale-95 opacity-50"
-      }`}
+    <motion.div
+      initial={false}
+      animate={isActive ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0.5 }}
+      transition={{ duration: 0.5 }}
+      style={{
+        perspective: 1000,
+      }}
+      className="relative w-full h-[500px] cursor-pointer"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* Card Container */}
-      <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] rounded-3xl overflow-hidden border border-[#434343]/30 shadow-2xl">
-        {/* Animated gradient border effect */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br from-[#434343] via-[#666666] to-[#434343] opacity-0 transition-opacity duration-500 ${
-            isHovered ? "opacity-20" : ""
-          }`}
-        ></div>
+      <motion.div
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="relative w-full h-full rounded-3xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#434343]/30 shadow-2xl overflow-hidden"
+      >
+        {/* Dynamic Spotlight Effect */}
+        <motion.div
+          style={{
+            background: useTransform(
+              [mouseX, mouseY],
+              ([x, y]) => `radial-gradient(circle at ${x * 100 + 50}% ${y * 100 + 50}%, rgba(255,255,255,0.1) 0%, transparent 50%)`
+            ),
+            transform: "translateZ(1px)"
+          }}
+          className="absolute inset-0 z-10 pointer-events-none"
+        />
 
-        {/* Image Container */}
-        <div className="relative" style={{ height: "400px" }}>
+        {/* Image Container Floating in 3D */}
+        <motion.div
+          style={{ transform: "translateZ(50px)" }}
+          className="absolute inset-x-4 top-4 h-[350px] rounded-2xl overflow-hidden shadow-lg border-2 border-[#434343]/20"
+        >
           <img
             src={member.image}
             alt={member.name}
-            className={`w-full h-full object-cover transition-all duration-700 ${
-              isHovered ? "scale-110" : "scale-100"
-            }`}
+            className="w-full h-full object-cover"
           />
-          {/* Subtle gradient overlay on image */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-transparent"></div>
+        </motion.div>
 
-          {/* Role badge inside image */}
-          <div className="absolute bottom-6 left-6 right-6 flex items-center gap-2 bg-gradient-to-r from-[#434343]/95 to-[#666666]/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-xl">
+        {/* Floating Badges & Content */}
+        <motion.div
+          style={{ transform: "translateZ(80px)" }}
+          className="absolute bottom-0 left-0 right-0 p-6 z-20"
+        >
+          {/* Role Badge */}
+          <div className="absolute top-[-40px] left-6 flex items-center gap-2 bg-gradient-to-r from-[#434343]/90 to-[#666666]/90 backdrop-blur-md px-4 py-2 rounded-full shadow-xl border border-white/10">
             <Sparkles size={14} className="text-white" />
-            <span className="text-xs font-bold text-white uppercase tracking-wider truncate">
+            <span className="text-xs font-bold text-white uppercase tracking-wider truncate max-w-[200px]">
               {member.role}
             </span>
           </div>
 
-          {/* Social icons floating */}
-          <div
-            className={`absolute top-6 right-6 flex flex-col gap-3 transition-all duration-500 ${
-              isHovered
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-4"
-            }`}
-          >
+          <h3 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">
+            {member.name}
+          </h3>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-1 bg-[#434343] rounded-full"></div>
+              <div className="w-2 h-2 bg-[#434343]/50 rounded-full"></div>
+            </div>
+
             <a
               href={member.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#434343] hover:bg-[#666666] p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
+              className="bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors backdrop-blur-sm border border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
-              <Linkedin size={18} className="text-white" />
+              <Linkedin size={20} className="text-white" />
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Content Section */}
-        <div className="relative p-6 bg-[#0a0a0a]">
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 transition-colors">
-            {member.name}
-          </h3>
 
-          {/* Decorative line */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-[#434343] to-transparent"></div>
-            <div className="w-2 h-2 bg-[#434343] rounded-full"></div>
-            <div className="flex-1 h-px bg-gradient-to-l from-[#434343] to-transparent"></div>
-          </div>
-        </div>
-
-        {/* Bottom accent line */}
-        <div
-          className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#434343] to-transparent transition-all duration-500 ${
-            isHovered ? "opacity-100" : "opacity-0"
-          }`}
-        ></div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -205,9 +236,8 @@ export default function TeamCarousel() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div
-          className={`text-center mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
-          }`}
+          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            }`}
         >
           <div className="inline-block mb-4">
             <span className="text-gray-400 text-sm font-semibold tracking-widest uppercase">
@@ -239,7 +269,7 @@ export default function TeamCarousel() {
               <TeamCard
                 member={
                   teamMembers[
-                    (currentIndex - 1 + teamMembers.length) % teamMembers.length
+                  (currentIndex - 1 + teamMembers.length) % teamMembers.length
                   ]
                 }
                 isActive={false}
@@ -285,11 +315,10 @@ export default function TeamCarousel() {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`transition-all duration-300 rounded-full ${
-                  index === currentIndex
-                    ? "w-12 h-3 bg-[#434343]"
-                    : "w-3 h-3 bg-[#434343]/30 hover:bg-[#434343]/50"
-                }`}
+                className={`transition-all duration-300 rounded-full ${index === currentIndex
+                  ? "w-12 h-3 bg-[#434343]"
+                  : "w-3 h-3 bg-[#434343]/30 hover:bg-[#434343]/50"
+                  }`}
               />
             ))}
           </div>
