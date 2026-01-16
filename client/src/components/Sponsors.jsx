@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from 'react';
 // Force Vercel Rebuild
 import { Award } from 'lucide-react';
-import ayush from "../assets/sponcors/Ayush Motors (YAMAHA).jpeg";
-import bbs from "../assets/sponcors/BBS.png";
-import bisleri from "../assets/sponcors/Bisleri.png";
-import bramha from "../assets/sponcors/Bramha Pure Veg.jpg";
-import burgerify from "../assets/sponcors/Burgerify.png";
-import cyberking from "../assets/sponcors/Cyberking.png";
-import glint from "../assets/sponcors/Glint.png";
-import grabon from "../assets/sponcors/Grabon.png";
-import kds from "../assets/sponcors/KD's Blackwood Cafe.jpg";
-import hackersera from "../assets/sponcors/hackersera_logo.png";
-import khadad from "../assets/sponcors/Khadad Punekar.jpg";
-import massit from "../assets/sponcors/MASSIT.png";
-import offroute from "../assets/sponcors/Off Route Adventure.jpg";
+import ayush from "../assets/sponcors/Ayush Motors (YAMAHA).avif";
+import bbs from "../assets/sponcors/BBS.avif";
+import bisleri from "../assets/sponcors/Bisleri.avif";
+import bramha from "../assets/sponcors/Bramha Pure Veg.avif";
+import burgerify from "../assets/sponcors/Burgerify.avif";
+import cyberking from "../assets/sponcors/Cyberking.avif";
+import glint from "../assets/sponcors/Glint.avif";
+import grabon from "../assets/sponcors/Grabon.avif";
+import kds from "../assets/sponcors/KD's Blackwood Cafe.avif";
+import hackersera from "../assets/sponcors/hackersera_logo.avif";
+import khadad from "../assets/sponcors/Khadad Punekar.avif";
+import massit from "../assets/sponcors/MASSIT.avif";
+import offroute from "../assets/sponcors/Off Route Adventure.avif";
 import paradox from "../assets/sponcors/Paradox Entertainment.svg";
-import reliance from "../assets/sponcors/Reliance digital.png";
-import phoenix from "../assets/sponcors/phoenix_logo.png";
-import skulz from "../assets/sponcors/Skulz Energy.jpeg";
-import stockgro from "../assets/sponcors/Stockgrow.png";
-import studx from "../assets/sponcors/StudX.jpg";
-import taxiwars from "../assets/sponcors/Taxiwars.png";
-import juicr from "../assets/sponcors/The juicr farm.jpeg";
-import king from "../assets/sponcors/The king sharma.png";
+import reliance from "../assets/sponcors/Reliance digital.avif";
+import phoenix from "../assets/sponcors/phoenix_logo.avif";
+import skulz from "../assets/sponcors/Skulz Energy.avif";
+import stockgro from "../assets/sponcors/Stockgrow.avif";
+import studx from "../assets/sponcors/StudX.avif";
+import taxiwars from "../assets/sponcors/Taxiwars.avif";
+import juicr from "../assets/sponcors/The juicr farm.avif";
+import king from "../assets/sponcors/The king sharma.avif";
 import trueel from "../assets/sponcors/True elements.webp";
-import zebronics from "../assets/sponcors/Zebronics.png";
-import ubereats from "../assets/sponcors/Uber Eats.png";
-import cordan from "../assets/sponcors/cordan.jpg";
-import techvision from "../assets/sponcors/techvision.png";
+import zebronics from "../assets/sponcors/Zebronics.avif";
+import ubereats from "../assets/sponcors/Uber Eats.avif";
+import cordan from "../assets/sponcors/cordan.avif";
+import techvision from "../assets/sponcors/techvision.avif";
 
 const sponsors = [
   { id: 1, name: "Ayush Motors", image: ayush },

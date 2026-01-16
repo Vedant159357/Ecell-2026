@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
-import hero from "../assets/hero.jpg";
+import hero from "../assets/hero.avif";
 // Import your local image like this:
 // import backgroundImage from './assets/your-image.jpg';
 

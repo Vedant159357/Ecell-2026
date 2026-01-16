@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
-import logo from "../assets/elogo.png";
+import logo from "../assets/elogo.avif";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
@@ -53,19 +53,16 @@ export default function Navbar() {
           {/* THREE HORIZONTAL LINES */}
           <div className="flex flex-col gap-1.5">
             <span
-              className={`h-0.5 bg-white transition-all duration-300 ${
-                isMenuOpen ? "w-8 rotate-45 translate-y-2" : "w-8"
-              }`}
+              className={`h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "w-8 rotate-45 translate-y-2" : "w-8"
+                }`}
             />
             <span
-              className={`h-0.5 bg-white transition-all duration-300 ${
-                isMenuOpen ? "opacity-0" : "w-8"
-              }`}
+              className={`h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "opacity-0" : "w-8"
+                }`}
             />
             <span
-              className={`h-0.5 bg-white transition-all duration-300 ${
-                isMenuOpen ? "w-8 -rotate-45 -translate-y-2" : "w-8"
-              }`}
+              className={`h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "w-8 -rotate-45 -translate-y-2" : "w-8"
+                }`}
             />
           </div>
         </button>
@@ -81,9 +78,8 @@ export default function Navbar() {
 
       {/* SIDEBAR */}
       <div
-        className={`fixed top-0 right-0 w-80 h-full z-50 transition-transform duration-300 ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 w-80 h-full z-50 transition-transform duration-300 ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         style={{
           background: "linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%)",
         }}
@@ -111,10 +107,9 @@ export default function Navbar() {
                 to={item.to}
                 onClick={closeMenu}
                 className={({ isActive }) =>
-                  `block py-3 px-4 rounded-lg ${
-                    isActive
-                      ? "bg-white/20 text-white"
-                      : "text-white hover:bg-white/10"
+                  `block py-3 px-4 rounded-lg ${isActive
+                    ? "bg-white/20 text-white"
+                    : "text-white hover:bg-white/10"
                   }`
                 }
               >

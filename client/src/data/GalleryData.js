@@ -1,8 +1,8 @@
 //this accessingg data from the event images whixh are saved as 1.jpg,2.jpg likethi 
-const imageCount = 10; 
+const imageCount = 10;
 
-const photos = Array.from({ length: imageCount }, (_, i) => 
-  `/gallery/${i + 1}.jpg`
+const photos = Array.from({ length: imageCount }, (_, i) =>
+  `/gallery/${i + 1}.avif`
 );
 
 

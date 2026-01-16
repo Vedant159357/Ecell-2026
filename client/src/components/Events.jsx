@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Sparkles, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { eventsData } from '@/data/eventsdata';
@@ -6,91 +7,129 @@ import { eventsData } from '@/data/eventsdata';
 // Event Card Component
 const EventCard = ({ event, index }) => {
   const navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, index * 200);
+  // Motion values for 3D effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-    return () => clearTimeout(timer);
-  }, [index]);
+  // Smooth spring animation
+  const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
+  const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
 
-  const borderPatterns = [
-    'rounded-tl-[2rem] rounded-br-[2rem] rounded-tr-lg rounded-bl-lg',
-    'rounded-tr-[2rem] rounded-bl-[2rem] rounded-tl-lg rounded-br-lg',
-    'rounded-tl-[1.5rem] rounded-br-[1.5rem] rounded-tr-xl rounded-bl-xl',
-    'rounded-tr-[1.5rem] rounded-bl-[1.5rem] rounded-tl-xl rounded-br-xl',
-    'rounded-tl-[2rem] rounded-br-[2rem] rounded-tr-lg rounded-bl-lg'
-  ];
+  // Rotation transforms
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
 
   const handleClick = () => {
     navigate(`/Eachevent/${event.slug}`);
   };
 
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    // Calculate mouse position relative to center of card (-0.5 to 0.5)
+    const mouseXPct = (e.clientX - rect.left) / width - 0.5;
+    const mouseYPct = (e.clientY - rect.top) / height - 0.5;
+
+    x.set(mouseXPct);
+    y.set(mouseYPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`group relative bg-gradient-to-br from-[#000000] to-[#434343] border border-[#434343]/30 overflow-hidden hover:border-[#434343]/60 transition-all duration-500 hover:scale-[1.02] cursor-pointer ${
-        borderPatterns[index % borderPatterns.length]
-      } ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onClick={handleClick}
+      className="relative h-[28rem] w-full cursor-pointer group rounded-3xl border border-[#434343]/50 p-4 bg-black/20"
+      style={{
+        perspective: 1000,
+        transformStyle: "preserve-3d",
+      }}
     >
-      {/* Subtle gradient overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-tr from-[#000000]/0 via-[#434343]/10 to-[#000000]/0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="relative w-full h-full rounded-2xl bg-gradient-to-br from-[#000000] to-[#434343] shadow-2xl overflow-hidden"
+      >
+        {/* Card Content Container with Parallax */}
+        <div className="absolute inset-0 rounded-2xl overflow-hidden" style={{ transform: "translateZ(0)" }}>
+          {/* Image Background */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/40 to-transparent z-10" />
+            <motion.img
+              src={event.image}
+              alt={event.title}
+              style={{ transform: "translateZ(-50px) scale(1.2)" }}
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-      {/* Image Container - Clearer image with lighter overlay */}
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={event.image}
-          alt={event.title}
-          className={`w-full h-full object-cover transition-all duration-500 ${isHovered ? 'scale-105' : 'scale-100'}`}
-        />
-        {/* Lighter gradient - only at bottom for badges visibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-transparent"></div>
-        
-        {/* Category badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-[#434343]/90 px-3 py-1.5 rounded-full backdrop-blur-sm">
-          <Sparkles size={12} className="text-white" />
-          <span className="text-xs font-bold text-white uppercase tracking-wider">{event.category}</span>
+          {/* Glare Effect */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 z-20 pointer-events-none"
+            style={{
+              opacity: useTransform(mouseX, [-0.5, 0.5], [0, 0.3])
+            }}
+          />
+
+          {/* Content Layer */}
+          <div className="absolute inset-0 z-30 p-6 flex flex-col justify-end">
+            <motion.div style={{ transform: "translateZ(60px)" }}>
+              {/* Badges */}
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-1.5 bg-[#434343]/90 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
+                  <Sparkles size={12} className="text-white" />
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">{event.category}</span>
+                </div>
+                {event.highlight && (
+                  <div className="bg-[#000000]/80 px-3 py-1 rounded-full border border-[#434343]/50 backdrop-blur-sm">
+                    <span className="text-xs font-semibold text-white">{event.highlight}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="text-2xl font-bold text-white mb-2 shadow-black drop-shadow-lg">
+                {event.title}
+              </h3>
+
+              <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-2 drop-shadow-md">
+                {event.description}
+              </p>
+
+              {/* Decorative Line */}
+              <div className="flex items-center gap-2 mb-4 opacity-50">
+                <div className="flex-1 h-px bg-gradient-to-r from-white/50 to-transparent"></div>
+                <Zap size={14} className="text-white" />
+                <div className="flex-1 h-px bg-gradient-to-l from-white/50 to-transparent"></div>
+              </div>
+
+              {/* Button */}
+              <motion.div
+                style={{ transform: "translateZ(40px)" }}
+                className="inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-200 transition-colors w-fit"
+              >
+                Explore Event
+                <ArrowRight size={16} />
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
-
-        {/* Highlight badge */}
-        <div className="absolute bottom-3 right-3 bg-[#000000]/80 px-3 py-1 rounded-full border border-[#434343]/50 backdrop-blur-sm">
-          <span className="text-xs font-semibold text-white">{event.highlight}</span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative p-4 z-10">
-        <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-gray-300 transition-colors">
-          {event.title}
-        </h3>
-
-        <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">
-          {event.description}
-        </p>
-
-        {/* Decorative line with icon */}
-        <div className="flex items-center gap-2 mb-3">
-          <div className="flex-1 h-px bg-gradient-to-r from-[#434343]/50 to-transparent"></div>
-          <Zap size={14} className="text-gray-500" />
-          <div className="flex-1 h-px bg-gradient-to-l from-[#434343]/50 to-transparent"></div>
-        </div>
-
-        {/* Explore Button */}
-        <div className="inline-flex items-center gap-2 bg-[#434343] text-white px-4 py-2 rounded-full text-xs font-semibold hover:bg-[#434343]/80 transition-all duration-300 group-hover:gap-3">
-          Explore Event
-          <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-        </div>
-      </div>
-
-      {/* Corner accent */}
-      <div className={`absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-bl-full transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
+      </motion.div>
     </div>
   );
 };
@@ -132,7 +171,7 @@ export default function EventsSection() {
             </span>
             <div className="h-0.5 bg-gradient-to-r from-transparent via-gray-600 to-transparent mt-2"></div>
           </div>
-          
+
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 relative inline-block">
             Our Events
             <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>

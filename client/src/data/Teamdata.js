@@ -1,32 +1,32 @@
 // src/data/teamData.js
 // Simple structure like IIC E-Cell SKNCOE
-import tanishq from "../assets/core-members/Tanishq Shroff.jpg";
-import anjali from "../assets/core-members/Anjali Kumhar.jpg";
-import ghuge from "../assets/core-members/Shivam Ghuge.jpg";
-import yukta from "../assets/core-members/Yukta Patil.jpg";
-import dhruv from "../assets/core-members/DHRUV UNHALE.jpg";
-import jayesh from "../assets/core-members/jayesh jadhav.jpg";
-import neel from "../assets/core-members/Neel Rawal.jpeg";
-import ram from "../assets/core-members/Ram Burange.jpg";
-import vedika from "../assets/core-members/Vedika Kharate.jpg";
-import aryan from "../assets/core-members/Aryan Agrawal.jpg";
-import ragini from "../assets/core-members/Ragini Devkar.jpg";
-import vinit from "../assets/core-members/Vinit Limkar.jpg";
-import rajshri from "../assets/core-members/Rajshri Dhage.jpg";
-import shyam from "../assets/core-members/Shyam.jpg";
-import kaushal from "../assets/core-members/Kaushal Masare.jpg";
-import shubh from "../assets/core-members/Shubham Sharma.jpg";
-import shantanu from "../assets/core-members/Shantanu Mapre.jpg";
-import ketan from "../assets/core-members/Ketan Patil.jpg";
-import vedant from "../assets/core-members/Vedant satpute.jpg";
-import rutu from "../assets/core-members/Rutuja Yelgate.jpg";
+import tanishq from "../assets/core-members/Tanishq Shroff.avif";
+import anjali from "../assets/core-members/Anjali Kumhar.avif";
+import ghuge from "../assets/core-members/Shivam Ghuge.avif";
+import yukta from "../assets/core-members/Yukta Patil.avif";
+import dhruv from "../assets/core-members/DHRUV UNHALE.avif";
+import jayesh from "../assets/core-members/jayesh jadhav.avif";
+import neel from "../assets/core-members/Neel Rawal.avif";
+import ram from "../assets/core-members/Ram Burange.avif";
+import vedika from "../assets/core-members/Vedika Kharate.avif";
+import aryan from "../assets/core-members/Aryan Agrawal.avif";
+import ragini from "../assets/core-members/Ragini Devkar.avif";
+import vinit from "../assets/core-members/Vinit Limkar.avif";
+import rajshri from "../assets/core-members/Rajshri Dhage.avif";
+import shyam from "../assets/core-members/Shyam.avif";
+import kaushal from "../assets/core-members/Kaushal Masare.avif";
+import shubh from "../assets/core-members/Shubham Sharma.avif";
+import shantanu from "../assets/core-members/Shantanu Mapre.avif";
+import ketan from "../assets/core-members/Ketan Patil.avif";
+import vedant from "../assets/core-members/Vedant satpute.avif";
+import rutu from "../assets/core-members/Rutuja Yelgate.avif";
 
 // Faculty Images
-import boroleImg from "../assets/Co-ordinators/borole.jpeg";
-import daveImg from "../assets/Co-ordinators/ruchiDave.jpeg";
-import railkarImg from "../assets/Co-ordinators/Prailkar.jpeg";
-import nagtilakImg from "../assets/Co-ordinators/SNagtalik.jpeg";
-import ranjanImg from "../assets/Co-ordinators/prabhat.jpeg";
+import boroleImg from "../assets/Co-ordinators/borole.avif";
+import daveImg from "../assets/Co-ordinators/ruchiDave.avif";
+import railkarImg from "../assets/Co-ordinators/Prailkar.avif";
+import nagtilakImg from "../assets/Co-ordinators/SNagtalik.avif";
+import ranjanImg from "../assets/Co-ordinators/prabhat.avif";
 export const teamData = {
   // Faculty/Mentors
   faculty: [
