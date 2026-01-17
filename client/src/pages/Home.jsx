@@ -43,6 +43,11 @@ export default function Home() {
         <Events />
       </section>
 
+      {/* SPONSORS */}
+      <section id="sponsors">
+        <Sponsors />
+      </section>
+
       {/* GUESTS */}
       <section id="guests">
         <Guests />
@@ -51,11 +56,6 @@ export default function Home() {
       {/* ALUMNI */}
       <section id="alumni">
         <Alumni />
-      </section>
-
-      {/* SPONSORS */}
-      <section id="sponsors">
-        <Sponsors />
       </section>
     </>
   );
