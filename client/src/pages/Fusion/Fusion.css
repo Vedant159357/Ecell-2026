@@ -1,0 +1,23 @@
+/* Fusion.css - Minimal overrides */
+
+/* Custom Scrollbar for the Fusion page */
+.fusion-wrapper ::-webkit-scrollbar {
+    width: 8px;
+}
+
+.fusion-wrapper ::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+.fusion-wrapper ::-webkit-scrollbar-thumb {
+    background: #0e7490;
+    border-radius: 4px;
+}
+
+.fusion-wrapper ::-webkit-scrollbar-thumb:hover {
+    background: #06b6d4;
+}
+
+html {
+    scroll-behavior: smooth;
+}
