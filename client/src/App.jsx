@@ -10,6 +10,7 @@ import Team from "./pages/Team";
 import Eachevent from "./pages/Eachevent";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import Fusion from "./pages/Fusion/Fusion";
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -22,6 +23,22 @@ function ScrollToTop() {
   return null;
 }
 
+// Layout component to handle conditional rendering of Navbar and Footer
+function Layout({ children }) {
+  const location = useLocation();
+  const isFusionPage = location.pathname === '/fusion';
+
+  return (
+    <>
+      {!isFusionPage && <Navbar />}
+      <div className={!isFusionPage ? "min-h-screen" : ""}>
+        {children}
+      </div>
+      {!isFusionPage && <Footer />}
+    </>
+  );
+}
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -32,17 +49,16 @@ function App() {
       {!loading && (
         <BrowserRouter>
           <ScrollToTop />
-          <Navbar />
-          <div className="min-h-screen">
+          <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Eachevent/:slug" element={<Eachevent />} />
               <Route path="/Team" element={<Team />} />
               <Route path="/Gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/fusion" element={<Fusion />} />
             </Routes>
-          </div>
-          <Footer />
+          </Layout>
         </BrowserRouter>
       )}
     </div>
