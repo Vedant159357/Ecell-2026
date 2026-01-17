@@ -94,7 +94,7 @@ const TeamCard = ({ member, isActive }) => {
       style={{
         perspective: 1000,
       }}
-      className="relative w-full h-[500px] cursor-pointer"
+      className="relative w-full h-[400px] md:h-[500px] cursor-pointer"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -121,7 +121,7 @@ const TeamCard = ({ member, isActive }) => {
         {/* Image Container Floating in 3D */}
         <motion.div
           style={{ transform: "translateZ(50px)" }}
-          className="absolute inset-x-4 top-4 h-[350px] rounded-2xl overflow-hidden shadow-lg border-2 border-[#434343]/20"
+          className="absolute inset-x-3 md:inset-x-4 top-3 md:top-4 h-[280px] md:h-[350px] rounded-2xl overflow-hidden shadow-lg border-2 border-[#434343]/20"
         >
           <img
             src={member.image}
@@ -137,14 +137,14 @@ const TeamCard = ({ member, isActive }) => {
           className="absolute bottom-0 left-0 right-0 p-6 z-20"
         >
           {/* Role Badge */}
-          <div className="absolute top-[-40px] left-6 flex items-center gap-2 bg-gradient-to-r from-[#434343]/90 to-[#666666]/90 backdrop-blur-md px-4 py-2 rounded-full shadow-xl border border-white/10">
-            <Sparkles size={14} className="text-white" />
-            <span className="text-xs font-bold text-white uppercase tracking-wider truncate max-w-[200px]">
+          <div className="absolute top-[-30px] md:top-[-40px] left-4 md:left-6 flex items-center gap-2 bg-gradient-to-r from-[#434343]/90 to-[#666666]/90 backdrop-blur-md px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-xl border border-white/10">
+            <Sparkles size={12} className="text-white md:size-[14px]" />
+            <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-wider truncate max-w-[150px] md:max-w-[200px]">
               {member.role}
             </span>
           </div>
 
-          <h3 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">
             {member.name}
           </h3>
 
@@ -279,22 +279,22 @@ export default function TeamCarousel() {
             {/* Left Arrow Button - Next to Current Card */}
             <button
               onClick={goToPrevious}
-              className="bg-[#434343] hover:bg-[#666666] text-white p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-4"
+              className="bg-[#434343] hover:bg-[#666666] text-white p-2.5 md:p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-2 md:mx-4"
             >
-              <ChevronLeft size={28} />
+              <ChevronLeft size={24} className="md:size-[28px]" />
             </button>
 
             {/* Current Card */}
-            <div className="w-full max-w-sm">
+            <div className="w-full max-w-[280px] md:max-w-sm">
               <TeamCard member={teamMembers[currentIndex]} isActive={true} />
             </div>
 
             {/* Right Arrow Button - Next to Current Card */}
             <button
               onClick={goToNext}
-              className="bg-[#434343] hover:bg-[#666666] text-white p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-4"
+              className="bg-[#434343] hover:bg-[#666666] text-white p-2.5 md:p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-2 md:mx-4"
             >
-              <ChevronRight size={28} />
+              <ChevronRight size={24} className="md:size-[28px]" />
             </button>
 
             {/* Next Card (Preview) - Hidden on smaller screens */}
