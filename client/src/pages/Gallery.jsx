@@ -20,22 +20,19 @@ const PhotoItem = ({ photo, index, onClick }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onClick(photo)}
-      className={`relative overflow-hidden rounded-2xl cursor-pointer group transition-all duration-500 border border-[#434343]/20 hover:border-[#434343]/50 ${
-        isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-      }`}
+      className={`relative overflow-hidden rounded-2xl cursor-pointer group transition-all duration-500 border border-[#434343]/20 hover:border-[#434343]/50 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        }`}
     >
       <img
         src={photo}
         alt="Gallery"
-        className={`w-full h-full object-cover transition-all duration-700 ${
-          isHovered ? 'scale-110' : 'scale-100'
-        }`}
+        className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-110' : 'scale-100'
+          }`}
       />
-      
+
       {/* Hover Overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-[#000000]/40 to-transparent transition-all duration-300 ${
-        isHovered ? 'opacity-100' : 'opacity-0'
-      }`}>
+      <div className={`absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-[#000000]/40 to-transparent transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'
+        }`}>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="bg-[#434343]/50 p-4 rounded-full backdrop-blur-sm">
             <Camera size={32} className="text-white" />
@@ -62,7 +59,7 @@ const Lightbox = ({ photo, onClose }) => {
       className="fixed inset-0 bg-[#000000]/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
       onClick={onClose}
     >
-     
+
       <button
         onClick={onClose}
         className="absolute top-6 right-6 bg-[#434343] hover:bg-[#434343]/80 p-3 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-[#434343]/50"
@@ -70,7 +67,7 @@ const Lightbox = ({ photo, onClose }) => {
         <X size={24} className="text-white" />
       </button>
 
-     
+
       <img
         src={photo}
         alt="Gallery"
@@ -94,7 +91,7 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #000000 0%, #434343 100%)' }}>
-      
+
       {/* Hero Section */}
       <section className="relative py-16 px-6 overflow-hidden">
         {/* Animated grid background */}
@@ -146,7 +143,7 @@ export default function Gallery() {
         </div>
       </section>
 
-    
+
 
       {/* Lightbox */}
       {selectedPhoto && (
