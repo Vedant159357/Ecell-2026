@@ -1,71 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// Force Vercel Rebuild
 import { Award } from 'lucide-react';
-import ayush from "../assets/sponcors/Ayush Motors (YAMAHA).avif";
-import bbs from "../assets/sponcors/BBS.avif";
-import bisleri from "../assets/sponcors/Bisleri.avif";
-import bramha from "../assets/sponcors/Bramha Pure Veg.avif";
-import burgerify from "../assets/sponcors/Burgerify.avif";
-import cyberking from "../assets/sponcors/Cyberking.avif";
-import glint from "../assets/sponcors/Glint.avif";
-import grabon from "../assets/sponcors/Grabon.avif";
-import kds from "../assets/sponcors/KD's Blackwood Cafe.avif";
-import hackersera from "../assets/sponcors/hackersera_logo.avif";
-import khadad from "../assets/sponcors/Khadad Punekar.avif";
-import massit from "../assets/sponcors/MASSIT.avif";
-import offroute from "../assets/sponcors/Off Route Adventure.avif";
-import paradox from "../assets/sponcors/Paradox Entertainment.svg";
-import reliance from "../assets/sponcors/Reliance digital.avif";
-import phoenix from "../assets/sponcors/phoenix_logo.avif";
-import skulz from "../assets/sponcors/Skulz Energy.avif";
-import stockgro from "../assets/sponcors/Stockgrow.avif";
-import studx from "../assets/sponcors/StudX.avif";
-import taxiwars from "../assets/sponcors/Taxiwars.avif";
-import juicr from "../assets/sponcors/The juicr farm.avif";
-import king from "../assets/sponcors/The king sharma.avif";
-import trueel from "../assets/sponcors/True elements.webp";
-import zebronics from "../assets/sponcors/Zebronics.avif";
-import ubereats from "../assets/sponcors/Uber Eats.avif";
-import cordan from "../assets/sponcors/cordan.avif";
-import techvision from "../assets/sponcors/techvision.avif";
-
-const sponsors = [
-  { id: 1, name: "Ayush Motors", image: ayush },
-  { id: 2, name: "BBS", image: bbs },
-  { id: 3, name: "Bisleri", image: bisleri },
-  { id: 4, name: "Bramha Pure Veg", image: bramha },
-  { id: 5, name: "Burgerify", image: burgerify },
-  { id: 6, name: "Cyberking Capitals", image: cyberking },
-  { id: 7, name: "Glint Logic Pvt. Ltd.", image: glint },
-  { id: 8, name: "GrabOn", image: grabon },
-  { id: 9, name: "KD's Blackwood Cafe", image: kds },
-  { id: 10, name: "Hackersera", image: hackersera },
-  { id: 11, name: "Khadad Punekar", image: khadad },
-  { id: 12, name: "Mass IT Solution", image: massit },
-  { id: 13, name: "Off Route Adventure", image: offroute },
-  { id: 14, name: "Paradox Entertainment", image: paradox },
-  { id: 15, name: "Reliance Digital", image: reliance },
-  { id: 16, name: "Phoenix Infotech", image: phoenix },
-  { id: 17, name: "Skulz Energy", image: skulz },
-  { id: 18, name: "StockGro", image: stockgro },
-  { id: 19, name: "StudX", image: studx },
-  { id: 20, name: "Taxiwars", image: taxiwars },
-  { id: 21, name: "The Juicr Farm", image: juicr },
-  { id: 22, name: "The King Sharma", image: king },
-  { id: 23, name: "True Elements", image: trueel },
-  { id: 24, name: "Zebronics", image: zebronics },
-  { id: 25, name: "Uber Eats", image: ubereats },
-  { id: 26, name: "cordon technologies", image: cordan },
-  { id: 27, name: "techvision", image: techvision },
-
-];
-
+import { client, urlFor } from "@/lib/sanity";
 
 const SponsorCard = ({ sponsor }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // Specific check for techvision to fit it correctly
-  const isTechvision = sponsor.name.toLowerCase().includes("techvision");
+  const isTechvision = sponsor.name?.toLowerCase().includes("techvision");
 
   return (
     <div
@@ -78,7 +19,7 @@ const SponsorCard = ({ sponsor }) => {
         <div className={`w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-[#434343]/30 transition-all duration-500 ${isHovered ? 'border-[#434343] scale-110 shadow-2xl shadow-[#434343]/50' : ''
           } ${isTechvision ? 'bg-white' : ''}`}> {/* Add white background for techvision if needed */}
           <img
-            src={sponsor.image}
+            src={sponsor.logo && sponsor.logo.asset ? urlFor(sponsor.logo).url() : sponsor.image}
             alt={sponsor.name}
             className={`w-full h-full transition-all duration-700 ${isHovered ? 'scale-110 rotate-6' : 'scale-100 rotate-0'
               } ${isTechvision ? 'object-contain p-2' : 'object-cover'}`} // Use contain for techvision
@@ -103,14 +44,30 @@ const SponsorCard = ({ sponsor }) => {
 
 
 export default function Sponsors() {
+  const [sponsorsData, setSponsorsData] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
+    const fetchSponsors = async () => {
+      try {
+        const query = '*[_type == "sponsor"]';
+        const data = await client.fetch(query);
+        if (data && data.length > 0) {
+          setSponsorsData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching sponsors:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSponsors();
   }, []);
 
   // Duplicate sponsors for seamless infinite scroll
-  const duplicatedSponsors = [...sponsors, ...sponsors, ...sponsors];
+  const duplicatedSponsors = sponsorsData.length > 0 ? [...sponsorsData, ...sponsorsData, ...sponsorsData] : [];
 
   return (
     <section
@@ -152,7 +109,34 @@ export default function Sponsors() {
           </p>
         </div>
 
-        {/* Scrolling Sponsors Container */}
+        {/* Header content unchanged ... past lines */}
+
+        {/* Categorized Sponsors (Tiers) */}
+        {!loading && ['gold', 'silver', 'bronze'].some(tier => sponsorsData.some(s => s.category === tier)) && (
+          <div className="max-w-7xl mx-auto px-6 mb-20 space-y-16">
+            {['gold', 'silver', 'bronze'].map(tier => {
+              const tieredSponsors = sponsorsData.filter(s => s.category === tier);
+              if (tieredSponsors.length === 0) return null;
+
+              return (
+                <div key={tier} className="text-center">
+                  <h3 className="text-2xl font-bold text-gray-400 uppercase tracking-[0.3em] mb-10 flex items-center justify-center gap-4">
+                    <div className="h-px w-12 bg-gray-600"></div>
+                    {tier} Partners
+                    <div className="h-px w-12 bg-gray-600"></div>
+                  </h3>
+                  <div className="flex flex-wrap justify-center gap-12">
+                    {tieredSponsors.map(sponsor => (
+                      <SponsorCard key={sponsor._id} sponsor={sponsor} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Scrolling Sponsors Container (For 'Partner' tier or all if no tiers) */}
         <div className="relative">
           {/* Gradient overlays for fade effect */}
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#000000] to-transparent z-10"></div>
@@ -160,11 +144,21 @@ export default function Sponsors() {
 
           {/* Scrolling animation container */}
           <div className="flex overflow-hidden">
-            <div className="flex animate-scroll">
-              {duplicatedSponsors.map((sponsor, index) => (
-                <SponsorCard key={`${sponsor.id}-${index}`} sponsor={sponsor} />
-              ))}
-            </div>
+            {loading ? (
+              <div className="text-center text-gray-400 py-10 w-full font-bold">Loading sponsors...</div>
+            ) : duplicatedSponsors.length > 0 ? (
+              <div className="flex animate-scroll">
+                {(sponsorsData.some(s => s.category) ?
+                  [...sponsorsData.filter(s => !['gold', 'silver', 'bronze'].includes(s.category)),
+                  ...sponsorsData.filter(s => !['gold', 'silver', 'bronze'].includes(s.category)),
+                  ...sponsorsData.filter(s => !['gold', 'silver', 'bronze'].includes(s.category))]
+                  : duplicatedSponsors).map((sponsor, index) => (
+                    <SponsorCard key={`${sponsor._id || sponsor.id}-${index}`} sponsor={sponsor} />
+                  ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 py-10 w-full">No sponsors found in CMS.</div>
+            )}
           </div>
         </div>
 
@@ -182,7 +176,7 @@ export default function Sponsors() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes scroll {
           0% {
             transform: translateX(0);

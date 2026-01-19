@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Instagram, ExternalLink, Camera } from 'lucide-react';
-import { galleryData } from '../data/GalleryData';
+import { client, urlFor } from '@/lib/sanity';
 
 
 // ============================================
@@ -24,7 +24,7 @@ const PhotoItem = ({ photo, index, onClick }) => {
         }`}
     >
       <img
-        src={photo}
+        src={urlFor(photo).url()}
         alt="Gallery"
         className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-110' : 'scale-100'
           }`}
@@ -69,7 +69,7 @@ const Lightbox = ({ photo, onClose }) => {
 
 
       <img
-        src={photo}
+        src={urlFor(photo).url()}
         alt="Gallery"
         className="max-w-full max-h-full object-contain rounded-2xl border border-[#434343]/30"
         onClick={(e) => e.stopPropagation()}
@@ -84,9 +84,29 @@ const Lightbox = ({ photo, onClose }) => {
 export default function Gallery() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
+    const fetchPhotos = async () => {
+      try {
+        const query = '*[_type == "gallery"]';
+        const data = await client.fetch(query);
+        if (data && data.length > 0) {
+          // Flatten all images from all gallery documents
+          const allImages = data.reduce((acc, current) => {
+            return acc.concat(current.images || []);
+          }, []);
+          setPhotos(allImages);
+        }
+      } catch (error) {
+        console.error("Error fetching gallery photos:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPhotos();
   }, []);
 
   return (
@@ -128,18 +148,24 @@ export default function Gallery() {
       {/* Photo Gallery Grid - PHOTOS FIRST */}
       <section className="px-6 pb-24">
         <div className="max-w-7xl mx-auto">
-          {/* Masonry Grid Layout */}
-          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-5">
-            {galleryData.photos.map((photo, index) => (
-              <div key={index} className="mb-5 break-inside-avoid">
-                <PhotoItem
-                  photo={photo}
-                  index={index}
-                  onClick={setSelectedPhoto}
-                />
-              </div>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center text-gray-400 py-10 font-bold">Loading memories...</div>
+          ) : photos.length > 0 ? (
+            /* Masonry Grid Layout */
+            <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-5">
+              {photos.map((photo, index) => (
+                <div key={photo._key || index} className="mb-5 break-inside-avoid">
+                  <PhotoItem
+                    photo={photo}
+                    index={index}
+                    onClick={setSelectedPhoto}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-gray-400 py-10">No photos found in gallery.</div>
+          )}
         </div>
       </section>
 

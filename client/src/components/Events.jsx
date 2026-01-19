@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Sparkles, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { eventsData } from '@/data/eventsdata';
+import { client, urlFor } from '@/lib/sanity';
 
 // Event Card Component
 const EventCard = ({ event, index }) => {
@@ -21,7 +21,8 @@ const EventCard = ({ event, index }) => {
   const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
 
   const handleClick = () => {
-    navigate(`/Eachevent/${event.slug}`);
+    const slug = event.slug?.current || event.slug;
+    navigate(`/Eachevent/${slug}`);
   };
 
   const handleMouseMove = (e) => {
@@ -71,7 +72,7 @@ const EventCard = ({ event, index }) => {
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/40 to-transparent z-10" />
             <motion.img
-              src={event.image}
+              src={event.mainImage ? urlFor(event.mainImage).url() : event.image}
               alt={event.title}
               style={{ transform: "translateZ(-50px) scale(1.2)" }}
               className="w-full h-full object-cover"
@@ -137,14 +138,30 @@ const EventCard = ({ event, index }) => {
 // Main Events Section Component
 export default function EventsSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
+    const fetchEvents = async () => {
+      try {
+        const query = '*[_type == "event"] | order(order asc)';
+        const data = await client.fetch(query);
+        if (data && data.length > 0) {
+          setEvents(data);
+        }
+      } catch (error) {
+        console.error("Error fetching events from Sanity:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
   }, []);
 
   return (
     <section
-      id="events"
       className="relative min-h-screen py-20 px-6 overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #000000 0%, #434343 100%)'
@@ -183,9 +200,23 @@ export default function EventsSection() {
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {eventsData.map((event, index) => (
-            <EventCard key={event.id} event={event} index={index} />
-          ))}
+          {events.length > 0 ? (
+            events.map((event, index) => (
+              <EventCard key={event._id || event.id} event={event} index={index} />
+            ))
+          ) : !loading ? (
+            <div className="col-span-full text-center text-gray-400 py-20 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
+              <Sparkles className="mx-auto mb-4 opacity-50" size={48} />
+              <h3 className="text-xl font-bold text-white mb-2">No Events Published Yet</h3>
+              <p className="max-w-md mx-auto">
+                Once you add events in your <span className="text-white">Sanity Studio</span>, they will appear here automatically.
+              </p>
+            </div>
+          ) : (
+            <div className="col-span-full text-center text-gray-400 py-10">
+              Loading events...
+            </div>
+          )}
         </div>
       </div>
     </section>

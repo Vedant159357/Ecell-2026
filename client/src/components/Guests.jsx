@@ -1,61 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Linkedin, Sparkles } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import rajshamani from "../assets/Guest/Raj_Shamani_DSC00824_BG.avif";
-import prajaktakoli from "../assets/Guest/prajakta koli.avif";
-import pranitmore from "../assets/Guest/more pranit.avif";
-import ishansharma from "../assets/Guest/ishan sharma.avif";
-import ashish from "../assets/Guest/ashish bharatvanshi.avif";
-import smonk from "../assets/Guest/radheshyam das.avif";
+import { client, urlFor } from "@/lib/sanity";
 
-const teamMembers = [
-  {
-    id: 1,
-    name: "Raj Shamani",
-    role: "Founder, Shamani Industries & Host of the Figuring Out Podcast.",
-    image: rajshamani,
-    linkedin: "linkedin.com/in/rajshamani",
-  },
-  {
-    id: 2,
-    name: "Prajakta Koli",
-    role: " Digital Content Creator & Actress",
-    image: prajaktakoli,
-    linkedin: "https://linkedin.com/in/michaelchen",
-  },
-  {
-    id: 3,
-    name: "Pranit More",
-    role: "Stand-up Comedian & Professional Content Creator",
-    image: pranitmore,
-
-    linkedin: "https://linkedin.com/in/emilyrodriguez",
-  },
-  {
-    id: 4,
-    name: "Ishan Sharma",
-    role: " Co-founder, MarkitUp & Educational YouTuber",
-    image: ishansharma,
-    linkedin: "https://linkedin.com/in/davidpark",
-  },
-  {
-    id: 5,
-    name: "Radheshyam Das Ji",
-
-    role: " President, ISKCON Pune & Founder of VOICE",
-    image: smonk,
-    instagram: "https://instagram.com/aishapatel",
-    linkedin: "https://linkedin.com/in/aishapatel",
-    email: "aisha@company.com",
-  },
-  {
-    id: 6,
-    name: "Ashish Bharatvanshi",
-    role: "Historian, Digital Educator, and TEDx Speaker.",
-    image: ashish,
-    linkedin: "https://linkedin.com/in/aishapatel",
-  },
-];
 
 // Team Member Card Component
 const TeamCard = ({ member, isActive }) => {
@@ -124,7 +71,7 @@ const TeamCard = ({ member, isActive }) => {
           className="absolute inset-x-3 md:inset-x-4 top-3 md:top-4 h-[280px] md:h-[350px] rounded-2xl overflow-hidden shadow-lg border-2 border-[#434343]/20"
         >
           <img
-            src={member.image}
+            src={member.image && member.image.asset ? urlFor(member.image).url() : member.image}
             alt={member.name}
             className="w-full h-full object-cover"
           />
@@ -137,14 +84,14 @@ const TeamCard = ({ member, isActive }) => {
           className="absolute bottom-0 left-0 right-0 p-6 z-20"
         >
           {/* Role Badge */}
-          <div className="absolute top-[-30px] md:top-[-40px] left-4 md:left-6 flex items-center gap-2 bg-gradient-to-r from-[#434343]/90 to-[#666666]/90 backdrop-blur-md px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-xl border border-white/10">
+          <div className="absolute top-[-25px] md:top-[-40px] left-4 md:left-6 flex items-center gap-2 bg-gradient-to-r from-[#434343]/90 to-[#666666]/90 backdrop-blur-md px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-xl border border-white/10">
             <Sparkles size={12} className="text-white md:size-[14px]" />
-            <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-wider truncate max-w-[150px] md:max-w-[200px]">
+            <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-wider truncate max-w-[120px] sm:max-w-[150px] md:max-w-[200px]">
               {member.role}
             </span>
           </div>
 
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">
+          <h3 className="text-xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">
             {member.name}
           </h3>
 
@@ -177,29 +124,47 @@ export default function TeamCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [guests, setGuests] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
+    const fetchGuests = async () => {
+      try {
+        const query = '*[_type == "guest"]';
+        const data = await client.fetch(query);
+        if (data) {
+          setGuests(data);
+        }
+      } catch (error) {
+        console.error("Error fetching guests:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGuests();
   }, []);
 
   // Auto-play functionality
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || guests.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % teamMembers.length);
+      setCurrentIndex((prev) => (prev + 1) % guests.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, guests]);
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % teamMembers.length);
+    if (guests.length === 0) return;
+    setCurrentIndex((prev) => (prev + 1) % guests.length);
   };
 
   const goToPrevious = () => {
+    if (guests.length === 0) return;
     setCurrentIndex(
-      (prev) => (prev - 1 + teamMembers.length) % teamMembers.length
+      (prev) => (prev - 1 + guests.length) % guests.length
     );
   };
 
@@ -213,7 +178,6 @@ export default function TeamCarousel() {
       style={{
         background: "linear-gradient(180deg, #000000 0%, #434343 100%)",
       }}
-      id="Guests"
     >
       {/* Animated grid background */}
       <div className="absolute inset-0 opacity-5">
@@ -246,7 +210,7 @@ export default function TeamCarousel() {
             <div className="h-0.5 bg-gradient-to-r from-transparent via-gray-600 to-transparent mt-2"></div>
           </div>
 
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 relative inline-block">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 relative inline-block">
             Guests
             <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
           </h2>
@@ -259,69 +223,77 @@ export default function TeamCarousel() {
           onMouseEnter={() => setIsAutoPlaying(false)}
           onMouseLeave={() => setIsAutoPlaying(true)}
         >
-          {/* Main Card Display with Side Arrows */}
-          <div className="flex items-center justify-center mb-12">
-            {/* Previous Card (Preview) - Hidden on smaller screens */}
-            <div
-              className="hidden lg:block w-64 opacity-30 hover:opacity-50 transition-opacity cursor-pointer"
-              onClick={goToPrevious}
-            >
-              <TeamCard
-                member={
-                  teamMembers[
-                  (currentIndex - 1 + teamMembers.length) % teamMembers.length
-                  ]
-                }
-                isActive={false}
-              />
-            </div>
+          {loading ? (
+            <div className="text-center text-gray-400 py-20">Loading guests...</div>
+          ) : guests.length > 0 ? (
+            <>
+              {/* Main Card Display with Side Arrows */}
+              <div className="flex items-center justify-center mb-12">
+                {/* Previous Card (Preview) - Hidden on smaller screens */}
+                <div
+                  className="hidden lg:block w-64 opacity-30 hover:opacity-50 transition-opacity cursor-pointer"
+                  onClick={goToPrevious}
+                >
+                  <TeamCard
+                    member={
+                      guests[
+                      (currentIndex - 1 + guests.length) % guests.length
+                      ]
+                    }
+                    isActive={false}
+                  />
+                </div>
 
-            {/* Left Arrow Button - Next to Current Card */}
-            <button
-              onClick={goToPrevious}
-              className="bg-[#434343] hover:bg-[#666666] text-white p-2.5 md:p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-2 md:mx-4"
-            >
-              <ChevronLeft size={24} className="md:size-[28px]" />
-            </button>
+                {/* Left Arrow Button - Next to Current Card */}
+                <button
+                  onClick={goToPrevious}
+                  className="bg-[#434343] hover:bg-[#666666] text-white p-2.5 md:p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-2 md:mx-4"
+                >
+                  <ChevronLeft size={24} className="md:size-[28px]" />
+                </button>
 
-            {/* Current Card */}
-            <div className="w-full max-w-[280px] md:max-w-sm">
-              <TeamCard member={teamMembers[currentIndex]} isActive={true} />
-            </div>
+                {/* Current Card */}
+                <div className="w-full max-w-[280px] md:max-w-sm">
+                  <TeamCard member={guests[currentIndex]} isActive={true} />
+                </div>
 
-            {/* Right Arrow Button - Next to Current Card */}
-            <button
-              onClick={goToNext}
-              className="bg-[#434343] hover:bg-[#666666] text-white p-2.5 md:p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-2 md:mx-4"
-            >
-              <ChevronRight size={24} className="md:size-[28px]" />
-            </button>
+                {/* Right Arrow Button - Next to Current Card */}
+                <button
+                  onClick={goToNext}
+                  className="bg-[#434343] hover:bg-[#666666] text-white p-2.5 md:p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-10 mx-2 md:mx-4"
+                >
+                  <ChevronRight size={24} className="md:size-[28px]" />
+                </button>
 
-            {/* Next Card (Preview) - Hidden on smaller screens */}
-            <div
-              className="hidden lg:block w-64 opacity-30 hover:opacity-50 transition-opacity cursor-pointer"
-              onClick={goToNext}
-            >
-              <TeamCard
-                member={teamMembers[(currentIndex + 1) % teamMembers.length]}
-                isActive={false}
-              />
-            </div>
-          </div>
+                {/* Next Card (Preview) - Hidden on smaller screens */}
+                <div
+                  className="hidden lg:block w-64 opacity-30 hover:opacity-50 transition-opacity cursor-pointer"
+                  onClick={goToNext}
+                >
+                  <TeamCard
+                    member={guests[(currentIndex + 1) % guests.length]}
+                    isActive={false}
+                  />
+                </div>
+              </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-3">
-            {teamMembers.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`transition-all duration-300 rounded-full ${index === currentIndex
-                  ? "w-12 h-3 bg-[#434343]"
-                  : "w-3 h-3 bg-[#434343]/30 hover:bg-[#434343]/50"
-                  }`}
-              />
-            ))}
-          </div>
+              {/* Dots Indicator */}
+              <div className="flex justify-center gap-3">
+                {guests.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`transition-all duration-300 rounded-full ${index === currentIndex
+                      ? "w-12 h-3 bg-[#434343]"
+                      : "w-3 h-3 bg-[#434343]/30 hover:bg-[#434343]/50"
+                      }`}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="text-center text-gray-400 py-20">No guests found in CMS.</div>
+          )}
         </div>
       </div>
     </section>

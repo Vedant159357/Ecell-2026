@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import logo from "../assets/elogo.avif";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { client, urlFor } from "@/lib/sanity";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [settings, setSettings] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const data = await client.fetch('*[_type == "siteSettings"][0]');
+        if (data) {
+          setSettings(data);
+        }
+      } catch (error) {
+        console.error("Error fetching navbar settings:", error);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   const menuItems = [
     { name: "Home", to: "/" },
@@ -14,6 +30,7 @@ export default function Navbar() {
     { name: "Events", hash: "#events" },
     { name: "Guests", hash: "#guests" },
     { name: "Sponsors", hash: "#sponsors" },
+    { name: "Alumni", hash: "#alumni" },
     { name: "Team", to: "/Team" },
     { name: "Gallery", to: "/Gallery" },
     { name: "Contact", to: "/Contact" },
@@ -39,7 +56,11 @@ export default function Navbar() {
       {/* LOGO */}
       <div className="absolute top-8 left-8 z-40">
         <NavLink to="/">
-          <img src={logo} alt="Logo" className="h-24 w-auto cursor-pointer" />
+          <img
+            src={settings?.logo ? urlFor(settings.logo).url() : logo}
+            alt="Logo"
+            className="h-14 md:h-24 w-auto cursor-pointer"
+          />
         </NavLink>
       </div>
 

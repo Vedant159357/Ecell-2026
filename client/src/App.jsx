@@ -47,7 +47,7 @@ function App() {
       {loading && <StartupLoader onComplete={() => setLoading(false)} />}
 
       {!loading && (
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
           <Layout>
             <Routes>
