@@ -1,25 +1,77 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Facebook, ChevronRight } from 'lucide-react';
+import { client, urlFor } from '@/lib/sanity';
 
 export default function Footer() {
+  const [settings, setSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const iconMap = {
+    linkedin: Linkedin,
+    instagram: Instagram,
+    twitter: Twitter,
+    facebook: Facebook,
+  };
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const data = await client.fetch('*[_type == "siteSettings"][0]');
+        if (data) {
+          setSettings(data);
+        }
+      } catch (error) {
+        console.error("Error fetching site settings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Events', href: '#events' },
-    { name: 'Team', href: '#team' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', to: '/#home' },
+    { name: 'About', to: '/#about' },
+    { name: 'Events', to: '/#events' },
+    { name: 'Team', to: '/Team' },
+    { name: 'Contact', to: '/Contact' }
   ];
 
-  const socialLinks = [
-    { icon: Linkedin, href: 'https://www.linkedin.com/company/ecell-skncoe', label: 'LinkedIn' },
-    { icon: Instagram, href: 'https://www.instagram.com/ecell_skncoe', label: 'Instagram' },
-    { icon: Twitter, href: 'https://twitter.com/ecell_skncoe', label: 'Twitter' },
-    { icon: Facebook, href: 'https://www.facebook.com/ecell.skncoe', label: 'Facebook' }
-  ];
+  const handleHashClick = (e, to) => {
+    // If it's a home page hash link (starts with /#)
+    if (to.startsWith('/#')) {
+      e.preventDefault();
+      const hash = to.replace('/', '');
+
+      if (location.pathname === "/") {
+        // Already on home -> smooth scroll
+        const el = document.querySelector(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // On another page -> navigate home with hash
+        navigate(to);
+      }
+    }
+  };
+
+  const socialLinks = settings?.socialLinks?.map(link => ({
+    icon: iconMap[link.platform.toLowerCase()] || Instagram,
+    href: link.url,
+    label: link.platform
+  })) || [
+      { icon: Linkedin, href: 'https://www.linkedin.com/company/ecell-skncoe', label: 'LinkedIn' },
+      { icon: Instagram, href: 'https://www.instagram.com/ecell_skncoe', label: 'Instagram' },
+      { icon: Twitter, href: 'https://twitter.com/ecell_skncoe', label: 'Twitter' },
+      { icon: Facebook, href: 'https://www.facebook.com/ecell.skncoe', label: 'Facebook' }
+    ];
 
   return (
-    <footer 
+    <footer
       className="relative overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #000000 0%, #434343 100%)'
@@ -44,10 +96,12 @@ export default function Footer() {
           <div className="lg:col-span-5">
             <div className="mb-8">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                E-Cell <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">SKNCOE</span>
+                {settings?.siteName?.split(' ')[0] || "E-Cell"} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">
+                  {settings?.siteName?.split(' ').slice(1).join(' ') || "SKNCOE"}
+                </span>
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed max-w-md">
-                Empowering the next generation of entrepreneurs and innovators through learning, mentorship, and community.
+                {settings?.siteDescription || "Empowering the next generation of entrepreneurs and innovators through learning, mentorship, and community."}
               </p>
             </div>
           </div>
@@ -61,8 +115,9 @@ export default function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Link 
-                    to={link.href}
+                  <Link
+                    to={link.to}
+                    onClick={(e) => handleHashClick(e, link.to)}
                     className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                   >
                     <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -ml-6 group-hover:ml-0 transition-all duration-300" />
@@ -80,8 +135,8 @@ export default function Footer() {
               <div className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-white to-transparent"></div>
             </h3>
             <div className="space-y-4">
-              <a 
-                href="mailto:ecell@skncoe.ac.in"
+              <a
+                href={`mailto:${settings?.contact?.email || 'ecell@skncoe.ac.in'}`}
                 className="flex items-start gap-3 text-gray-300 hover:text-white transition-colors duration-300 group"
               >
                 <div className="flex-shrink-0 w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
@@ -89,12 +144,12 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Email</div>
-                  <div className="font-semibold">ecell@skncoe.ac.in</div>
+                  <div className="font-semibold">{settings?.contact?.email || 'ecell@skncoe.ac.in'}</div>
                 </div>
               </a>
 
-              <a 
-                href="tel:+919876543210"
+              <a
+                href={`tel:${settings?.contact?.phone || '+919876543210'}`}
                 className="flex items-start gap-3 text-gray-300 hover:text-white transition-colors duration-300 group"
               >
                 <div className="flex-shrink-0 w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
@@ -102,7 +157,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Phone</div>
-                  <div className="font-semibold">+91 98765 43210</div>
+                  <div className="font-semibold">{settings?.contact?.phone || '+91 98765 43210'}</div>
                 </div>
               </a>
 
@@ -112,7 +167,11 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Location</div>
-                  <div className="font-semibold">SKNCOE, Vadgaon (BK) Pune<br />Maharashtra, India</div>
+                  <div className="font-semibold">{settings?.contact?.address ? (
+                    <span dangerouslySetInnerHTML={{ __html: settings.contact.address.replace(/\n/g, '<br />') }} />
+                  ) : (
+                    <>SKNCOE, Vadgaon (BK) Pune<br />Maharashtra, India</>
+                  )}</div>
                 </div>
               </div>
             </div>

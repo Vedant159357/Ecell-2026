@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Linkedin, Users } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-import { teamData } from '../data/Teamdata';
+import { client, urlFor } from '@/lib/sanity';
 
 // ============================================
 // Simple Team Member Card (IIC Style)
@@ -26,7 +26,7 @@ const TeamMemberCard = ({ member, index }) => {
       {/* Image with Hover Overlay */}
       <div className="relative h-64 overflow-hidden group">
         <img
-          src={member.image}
+          src={member.profileImage && member.profileImage.asset ? urlFor(member.profileImage).url() : member.image}
           alt={member.name}
           className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-110' : 'scale-100'} ${member.alignment || 'object-center'}`}
         />
@@ -81,9 +81,30 @@ const SectionHeader = ({ title }) => {
 // ============================================
 export default function Team() {
   const [isVisible, setIsVisible] = useState(false);
+  const [faculty, setFaculty] = useState([]);
+  const [coreTeam, setCoreTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
+    const fetchTeam = async () => {
+      try {
+        const query = '*[_type == "teamMember"]';
+        const data = await client.fetch(query);
+        if (data && data.length > 0) {
+          setFaculty(data.filter(m => m.category?.toLowerCase() === 'faculty').sort((a, b) => {
+            const hierarchy = { president: 1, vicePresident: 2, convener: 3, coordinator: 4 };
+            return (hierarchy[a.hierarchy] || 99) - (hierarchy[b.hierarchy] || 99);
+          }));
+          setCoreTeam(data.filter(m => m.category?.toLowerCase() === 'core team' || m.category?.toLowerCase() === 'coreteam').sort((a, b) => (a.order || 0) - (b.order || 0)));
+        }
+      } catch (error) {
+        console.error("Error fetching team members:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTeam();
   }, []);
 
   return (
@@ -144,33 +165,38 @@ export default function Team() {
         <div className="max-w-7xl mx-auto">
           <SectionHeader title="Faculty Coordinators" />
 
-          {/* Hierarchy Layout */}
+          {loading ? (
+            <div className="text-center text-gray-400 py-10">Loading faculty members...</div>
+          ) : faculty.length > 0 ? (
+            <>
+              {/* 1. President */}
+              {faculty.filter(m => m.hierarchy === "president").map((member, index) => (
+                <div key={member._id || member.id} className="flex justify-center mb-10">
+                  <div className="w-full max-w-sm">
+                    <TeamMemberCard member={member} index={index} />
+                  </div>
+                </div>
+              ))}
 
-          {/* 1. President */}
-          {teamData.faculty.filter(m => m.hierarchy === "president").map((member, index) => (
-            <div key={member.id} className="flex justify-center mb-10">
-              <div className="w-full max-w-sm">
-                <TeamMemberCard member={member} index={index} />
+              {/* 2. VP & Convener */}
+              <div className="flex flex-wrap justify-center gap-8 mb-10">
+                {faculty.filter(m => m.hierarchy === "vicePresident" || m.hierarchy === "convener").map((member, index) => (
+                  <div key={member._id || member.id} className="w-full max-w-xs">
+                    <TeamMemberCard member={member} index={index} />
+                  </div>
+                ))}
               </div>
-            </div>
-          ))}
 
-          {/* 2. VP & Convener */}
-          <div className="flex flex-wrap justify-center gap-8 mb-10">
-            {teamData.faculty.filter(m => m.hierarchy === "vicePresident" || m.hierarchy === "convener").map((member, index) => (
-              <div key={member.id} className="w-full max-w-xs">
-                <TeamMemberCard member={member} index={index} />
+              {/* 3. Coordinators Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+                {faculty.filter(m => m.hierarchy === "coordinator").map((member, index) => (
+                  <TeamMemberCard key={member._id || member.id} member={member} index={index} />
+                ))}
               </div>
-            ))}
-          </div>
-
-          {/* 3. Coordinators Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
-            {teamData.faculty.filter(m => m.hierarchy === "coordinator").map((member, index) => (
-              <TeamMemberCard key={member.id} member={member} index={index} />
-            ))}
-          </div>
-
+            </>
+          ) : !loading && (
+            <div className="text-center text-gray-400 py-10">No faculty members found in CMS.</div>
+          )}
         </div>
       </section>
 
@@ -179,46 +205,54 @@ export default function Team() {
         <div className="max-w-7xl mx-auto">
           <SectionHeader title="Core Team" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-6">
-            {teamData.coreTeam.slice(0, 1).map((member, index) => (
-              <div key={member.id} className="sm:col-span-2 md:col-span-3 lg:col-span-4 flex justify-center">
-                <div className="w-full max-w-[280px] sm:max-w-xs">
-                  <TeamMemberCard member={member} index={index} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-4xl mx-auto mb-6">
-            {teamData.coreTeam.slice(1, 4).map((member, index) => (
-              <div key={member.id} className="flex justify-center">
-                <div className="w-full max-w-[280px] sm:max-w-xs">
-                  <TeamMemberCard member={member} index={index + 1} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-6">
-            {teamData.coreTeam.slice(4, 8).map((member, index) => (
-              <div key={member.id} className="flex justify-center">
-                <div className="w-full max-w-[280px] sm:max-w-xs">
-                  <TeamMemberCard member={member} index={index + 4} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {teamData.coreTeam.length > 8 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
-              {teamData.coreTeam.slice(8, teamData.coreTeam.length).map((member, index) => (
-                <div key={member.id} className="flex justify-center">
-                  <div className="w-full max-w-[280px] sm:max-w-xs">
-                    <TeamMemberCard member={member} index={index + 8} />
+          {loading ? (
+            <div className="text-center text-gray-400 py-10">Loading core team...</div>
+          ) : coreTeam.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-6">
+                {coreTeam.slice(0, 1).map((member, index) => (
+                  <div key={member._id || member.id} className="sm:col-span-2 md:col-span-3 lg:col-span-4 flex justify-center">
+                    <div className="w-full max-w-[280px] sm:max-w-xs">
+                      <TeamMemberCard member={member} index={index} />
+                    </div>
                   </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-4xl mx-auto mb-6">
+                {coreTeam.slice(1, 4).map((member, index) => (
+                  <div key={member._id || member.id} className="flex justify-center">
+                    <div className="w-full max-w-[280px] sm:max-w-xs">
+                      <TeamMemberCard member={member} index={index + 1} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-6">
+                {coreTeam.slice(4, 8).map((member, index) => (
+                  <div key={member._id || member.id} className="flex justify-center">
+                    <div className="w-full max-w-[280px] sm:max-w-xs">
+                      <TeamMemberCard member={member} index={index + 4} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {coreTeam.length > 8 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
+                  {coreTeam.slice(8, coreTeam.length).map((member, index) => (
+                    <div key={member._id || member.id} className="flex justify-center">
+                      <div className="w-full max-w-[280px] sm:max-w-xs">
+                        <TeamMemberCard member={member} index={index + 8} />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
+            </>
+          ) : !loading && (
+            <div className="text-center text-gray-400 py-10">No core team members found in CMS.</div>
           )}
         </div>
       </section>
