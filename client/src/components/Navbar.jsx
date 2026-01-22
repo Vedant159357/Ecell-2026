@@ -34,6 +34,7 @@ export default function Navbar() {
     { name: "Team", to: "/Team" },
     { name: "Gallery", to: "/Gallery" },
     { name: "Contact", to: "/Contact" },
+    { name: "Ideathon", to: "/ideathon" },
     { name: "Fusion", to: "/fusion" },
   ];
 
