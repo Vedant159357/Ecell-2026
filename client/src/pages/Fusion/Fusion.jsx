@@ -64,16 +64,16 @@ const Fusion = () => {
             {/* Navbar */}
             <nav className="fixed top-0 w-full z-50 px-4 md:px-6 py-4 bg-[#020617]/80 backdrop-blur-lg border-b border-white/10">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <motion.div
+                    <motion.img
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="text-2xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
-                    >
-                        FUSION <span className="text-white">2K25</span>
-                    </motion.div>
+                        src="/fusion/fusion_logo.png"
+                        alt="Fusion Logo"
+                        className="h-[72px] w-auto object-contain -my-4"
+                    />
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex gap-8">
+                    <div className="hidden md:flex gap-8 items-center">
                         {navItems.map((item, i) => (
                             <motion.a
                                 key={item.label}
@@ -241,47 +241,123 @@ const Fusion = () => {
                     </div>
                 </section>
 
-                {/* Highlights Section */}
-                <section id="highlights" className="py-20 px-6">
-                    <div className="max-w-7xl mx-auto">
+                {/* Highlights Section - Cinematic Video Overlay */}
+                {/* Highlights Section - Cinematic Video Overlay */}
+                <section id="highlights" className="py-20 bg-black">
+                    <div className="max-w-7xl mx-auto px-6">
                         <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            className="text-4xl md:text-6xl font-bold text-center mb-16"
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            className="text-4xl md:text-6xl font-black text-center mb-16 tracking-tight"
                         >
-                            Event <span className="text-purple-500">Highlights</span>
+                            Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Highlights</span>
                         </motion.h2>
+                    </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {[
-                                "/fusion/h1.webp",
-                                "/fusion/h2.webp",
-                                "/fusion/h3.webp",
-                                "/fusion/h4.webp",
-                                "/fusion/h5.webp",
-                                "/fusion/h6.webp",
-                                "/fusion/h7.webp",
-                                "/fusion/h8.webp"
-                            ].map((src, i) => (
+                    {/* Cinematic Area: Images + Video */}
+                    <div className="relative w-full h-[600px] overflow-hidden border-y border-white/10 bg-[#020617]">
+                        {/* Background Marquee */}
+                        <div className="absolute inset-0 z-0 opacity-100 flex flex-col justify-between py-8 gap-4">
+                            {/* Row 1 - Left */}
+                            <div className="flex overflow-hidden whitespace-nowrap">
                                 <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: i * 0.05 }}
-                                    whileHover={{ scale: 1.05, zIndex: 10 }}
-                                    className="relative aspect-video rounded-xl overflow-hidden cursor-pointer border border-white/10 group"
-                                    onClick={() => setLightboxSrc(src)}
+                                    className="flex gap-4"
+                                    animate={{ x: ["0%", "-50%"] }}
+                                    transition={{ ease: "linear", duration: 40, repeat: Infinity }}
                                 >
-                                    <img
-                                        src={src}
-                                        alt={`Highlight ${i + 1}`}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                        <ExternalLink className="text-white w-8 h-8" />
-                                    </div>
+                                    {[
+                                        "/fusion/h1.webp", "/fusion/h2.webp", "/fusion/h3.webp", "/fusion/h4.webp",
+                                        "/fusion/h5.webp", "/fusion/h6.webp", "/fusion/h7.webp", "/fusion/h8.webp",
+                                        "/fusion/h1.webp", "/fusion/h2.webp", "/fusion/h3.webp", "/fusion/h4.webp",
+                                        "/fusion/h5.webp", "/fusion/h6.webp", "/fusion/h7.webp", "/fusion/h8.webp"
+                                    ].map((src, i) => (
+                                        <div key={i} className="relative w-80 h-48 flex-shrink-0 group overflow-hidden rounded-xl">
+                                            <img
+                                                src={src}
+                                                alt=""
+                                                className="w-full h-full object-cover filter grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                                        </div>
+                                    ))}
                                 </motion.div>
-                            ))}
+                            </div>
+
+                            {/* Row 2 - Right */}
+                            <div className="flex overflow-hidden whitespace-nowrap">
+                                <motion.div
+                                    className="flex gap-4"
+                                    animate={{ x: ["-50%", "0%"] }}
+                                    transition={{ ease: "linear", duration: 45, repeat: Infinity }}
+                                >
+                                    {[
+                                        "/fusion/h8.webp", "/fusion/h7.webp", "/fusion/h6.webp", "/fusion/h5.webp",
+                                        "/fusion/h4.webp", "/fusion/h3.webp", "/fusion/h2.webp", "/fusion/h1.webp",
+                                        "/fusion/h8.webp", "/fusion/h7.webp", "/fusion/h6.webp", "/fusion/h5.webp",
+                                        "/fusion/h4.webp", "/fusion/h3.webp", "/fusion/h2.webp", "/fusion/h1.webp"
+                                    ].map((src, i) => (
+                                        <div key={i} className="relative w-80 h-48 flex-shrink-0 group overflow-hidden rounded-xl">
+                                            <img
+                                                src={src}
+                                                alt=""
+                                                className="w-full h-full object-cover filter grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            </div>
+
+                            {/* Row 3 - Left */}
+                            <div className="flex overflow-hidden whitespace-nowrap">
+                                <motion.div
+                                    className="flex gap-4"
+                                    animate={{ x: ["0%", "-50%"] }}
+                                    transition={{ ease: "linear", duration: 35, repeat: Infinity }}
+                                >
+                                    {[
+                                        "/fusion/h3.webp", "/fusion/h5.webp", "/fusion/h1.webp", "/fusion/h7.webp",
+                                        "/fusion/h2.webp", "/fusion/h8.webp", "/fusion/h4.webp", "/fusion/h6.webp",
+                                        "/fusion/h3.webp", "/fusion/h5.webp", "/fusion/h1.webp", "/fusion/h7.webp",
+                                        "/fusion/h2.webp", "/fusion/h8.webp", "/fusion/h4.webp", "/fusion/h6.webp"
+                                    ].map((src, i) => (
+                                        <div key={i} className="relative w-80 h-48 flex-shrink-0 group overflow-hidden rounded-xl">
+                                            <img
+                                                src={src}
+                                                alt=""
+                                                className="w-full h-full object-cover filter grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            </div>
+                        </div>
+
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 z-10 bg-black/40 pointer-events-none" />
+
+                        {/* Centered Video */}
+                        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8 }}
+                                className="w-full max-w-2xl aspect-video bg-black rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(6,182,212,0.3)] border border-white/10 pointer-events-auto"
+                            >
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src="https://www.youtube.com/embed/gi5dJFVD4CQ?si=si7Pzxvp_OnlmAfF&autoplay=0&rel=0"
+                                    title="Fusion Highlights"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                    className="w-full h-full"
+                                ></iframe>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
@@ -290,8 +366,10 @@ const Fusion = () => {
                 <section id="domains" className="py-20 px-6">
                     <div className="max-w-7xl mx-auto">
                         <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            viewport={{ once: true }}
                             className="text-4xl md:text-6xl font-bold text-center mb-16"
                         >
                             Hackathon <span className="text-cyan-400">Domains</span>
@@ -390,7 +468,15 @@ const Fusion = () => {
                 {/* Timeline - Styled as vertical path */}
                 <section id="timeline" className="py-20 px-6">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-4xl font-bold text-center mb-16">Timeline</h2>
+                        <motion.h2
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            className="text-4xl font-bold text-center mb-16"
+                        >
+                            Timeline
+                        </motion.h2>
                         <div className="space-y-8">
                             {[
                                 { title: "Inauguration", time: "9th Oct, 9:00 AM", desc: "Opening ceremony and kit distribution." },
@@ -425,7 +511,15 @@ const Fusion = () => {
                 {/* Sponsors Section - Marquee Style */}
                 <section id="sponsors" className="py-20 bg-white/5 border-t border-white/5">
                     <div className="max-w-7xl mx-auto px-6 text-center">
-                        <h2 className="text-4xl font-bold mb-12">Our Partners</h2>
+                        <motion.h2
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            className="text-4xl font-bold mb-12"
+                        >
+                            Our Partners
+                        </motion.h2>
 
                         {/* Title Sponsor */}
                         <div className="mb-16">
@@ -439,7 +533,7 @@ const Fusion = () => {
 
                         {/* Other Sponsors Grid */}
                         <div className="flex flex-wrap justify-center gap-8 items-center opacity-80">
-                            {[burgerify, cardon, offroute, reliance, skulz].map((logo, i) => (
+                            {[burgerify, cardon, reliance, skulz].map((logo, i) => (
                                 <motion.div
                                     key={i}
                                     whileHover={{ scale: 1.1, opacity: 1 }}
