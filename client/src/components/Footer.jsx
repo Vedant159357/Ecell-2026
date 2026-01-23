@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Facebook, ChevronRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Facebook, Youtube, ChevronRight } from 'lucide-react';
 import { client, urlFor } from '@/lib/sanity';
 
 export default function Footer() {
@@ -14,6 +14,7 @@ export default function Footer() {
     instagram: Instagram,
     twitter: Twitter,
     facebook: Facebook,
+    youtube: Youtube,
   };
 
   useEffect(() => {
@@ -64,10 +65,10 @@ export default function Footer() {
     href: link.url,
     label: link.platform
   })) || [
-      { icon: Linkedin, href: 'https://www.linkedin.com/company/ecell-skncoe', label: 'LinkedIn' },
-      { icon: Instagram, href: 'https://www.instagram.com/ecell_skncoe', label: 'Instagram' },
-      { icon: Twitter, href: 'https://twitter.com/ecell_skncoe', label: 'Twitter' },
-      { icon: Facebook, href: 'https://www.facebook.com/ecell.skncoe', label: 'Facebook' }
+      { icon: Instagram, href: 'https://www.instagram.com/iic_ecellskncoe', label: 'Instagram' },
+      { icon: Linkedin, href: 'https://www.linkedin.com/company/e-cell-skncoe-pune', label: 'LinkedIn' },
+      { icon: Twitter, href: 'https://x.com/EcellSkncoe50', label: 'Twitter' },
+      { icon: Youtube, href: 'https://www.youtube.com/channel/UCRQcbHIFApOqtkZ10PgggYA', label: 'YouTube' }
     ];
 
   return (
@@ -136,7 +137,7 @@ export default function Footer() {
             </h3>
             <div className="space-y-4">
               <a
-                href={`mailto:${settings?.contact?.email || 'ecell@skncoe.ac.in'}`}
+                href={`mailto:${settings?.contact?.email || 'ecellskncoe.mail@gmail.com'}`}
                 className="flex items-start gap-3 text-gray-300 hover:text-white transition-colors duration-300 group"
               >
                 <div className="flex-shrink-0 w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
@@ -144,7 +145,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Email</div>
-                  <div className="font-semibold">{settings?.contact?.email || 'ecell@skncoe.ac.in'}</div>
+                  <div className="font-semibold">{settings?.contact?.email || 'ecellskncoe.mail@gmail.com'}</div>
                 </div>
               </a>
 
@@ -202,13 +203,13 @@ export default function Footer() {
               © {new Date().getFullYear()} E-Cell SKNCOE. All rights reserved.
             </p>
             <div className="flex items-center justify-center md:justify-end gap-4 mt-2">
-              <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+              <p className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
                 Privacy Policy
-              </Link>
+              </p>
               <span className="text-gray-600">•</span>
-              <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+              <p to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
                 Terms of Service
-              </Link>
+              </p>
             </div>
           </div>
         </div>

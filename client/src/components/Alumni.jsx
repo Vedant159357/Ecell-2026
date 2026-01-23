@@ -256,14 +256,12 @@ export default function Alumni() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="inline-block mb-4">
-              <span className="text-gray-400 text-sm font-semibold tracking-widest uppercase">
-                Success Stories
-              </span>
+
               <div className="h-0.5 bg-gradient-to-r from-transparent via-[#434343] to-transparent mt-2"></div>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 relative inline-block">
-              Our Alumni
+              Alumni
               <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#434343] to-transparent"></div>
             </h1>
             <p className="text-gray-400 text-lg md:text-xl mt-8 max-w-2xl mx-auto">
