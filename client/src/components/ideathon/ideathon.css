@@ -1,0 +1,190 @@
+/* ===================================
+   IDEATHON PAGE - SUITS EDITION
+   High-End Corporate / Elite Vibe
+   =================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:wght@100..900&display=swap');
+
+:root {
+    --suits-red: #ED1C24;
+    --suits-black: #000000;
+    --suits-grey: #1a1a1a;
+    --suits-silver: #a6a6a6;
+    --suits-white: #ffffff;
+    --font-corporate: 'Work Sans', sans-serif;
+    --font-elite: 'Playfair Display', serif;
+}
+
+.suits-theme {
+    font-family: var(--font-corporate);
+    background-color: var(--suits-black);
+    color: var(--suits-white);
+    overflow-x: hidden;
+}
+
+/* NYC Skyline Overlay */
+.nyc-overlay {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url('https://images.unsplash.com/photo-1470075801209-17f9ec0cada6?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Sharp Corporate Cards */
+.suits-card {
+    background: rgba(26, 26, 26, 0.8);
+    border-left: 4px solid var(--suits-red);
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.suits-card:hover {
+    background: rgba(40, 40, 40, 0.9);
+    transform: translateX(10px);
+}
+
+.suits-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(237, 28, 36, 0.05), transparent);
+    transition: 0.5s;
+}
+
+.suits-card:hover::after {
+    right: 100%;
+}
+
+/* Bold Typography */
+.suits-title {
+    font-family: var(--font-corporate);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    font-size: clamp(2rem, 6vw, 4rem);
+    line-height: 0.9;
+}
+
+.suits-red-text {
+    color: var(--suits-red);
+}
+
+.suits-serif {
+    font-family: var(--font-elite);
+    font-style: italic;
+}
+
+/* CTA "Bow Tie" Button */
+.suits-button {
+    background: var(--suits-red);
+    color: white;
+    padding: 1.5rem 5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bow Tie Shape: > < */
+    clip-path: polygon(0% 0%, 100% 0%, 95% 50%, 100% 100%, 0% 100%, 5% 50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suits-button:hover {
+    background: white;
+    color: black;
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(237, 28, 36, 0.6);
+    clip-path: polygon(0% 0%, 100% 0%, 92% 50%, 100% 100%, 0% 100%, 8% 50%);
+}
+
+/* Center Knot Detail */
+.suits-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Pinstripe Texture Overlay */
+.pinstripe-overlay {
+    background-image: repeating-linear-gradient(90deg,
+            transparent,
+            transparent 40px,
+            rgba(255, 255, 255, 0.03) 40px,
+            rgba(255, 255, 255, 0.03) 41px);
+}
+
+/* Section Dividers */
+.suits-divider {
+    width: 100px;
+    height: 4px;
+    background: var(--suits-red);
+    margin: 2rem 0;
+}
+
+/* Custom Scrollbar */
+.suits-theme::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suits-theme::-webkit-scrollbar-track {
+    background: var(--suits-black);
+}
+
+.suits-theme::-webkit-scrollbar-thumb {
+    background: var(--suits-red);
+}
+
+/* Accordion for Suits */
+.suits-faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.suits-faq-item:last-child {
+    border-bottom: none;
+}
+
+/* Animated Underline */
+.animated-underline {
+    position: relative;
+}
+
+.animated-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--suits-red);
+    transition: width 0.3s ease;
+}
+
+.animated-underline:hover::after {
+    width: 100%;
+}
+
+/* Hero Title - Keep Large */
+.hero-title {
+    font-family: var(--font-corporate);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    font-size: clamp(3rem, 10vw, 8rem) !important;
+    line-height: 0.9;
+}

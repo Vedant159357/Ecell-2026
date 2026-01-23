@@ -11,6 +11,7 @@ import Eachevent from "./pages/Eachevent";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Fusion from "./pages/Fusion/Fusion";
+import Ideathon from "./pages/Ideathon";
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -26,21 +27,23 @@ function ScrollToTop() {
 // Layout component to handle conditional rendering of Navbar and Footer
 function Layout({ children }) {
   const location = useLocation();
-  const isFusionPage = location.pathname === '/fusion';
+  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon';
 
   return (
     <>
-      {!isFusionPage && <Navbar />}
-      <div className={!isFusionPage ? "min-h-screen" : ""}>
+      {!isStandalonePage && <Navbar />}
+      <div className={!isStandalonePage ? "min-h-screen" : ""}>
         {children}
       </div>
-      {!isFusionPage && <Footer />}
+      {!isStandalonePage && <Footer />}
     </>
   );
 }
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  // Skip global loader for Ideathon page
+  const isIdeathon = window.location.pathname === '/ideathon';
+  const [loading, setLoading] = useState(!isIdeathon);
 
   return (
     <div className="bg-[#213448] min-h-screen">
@@ -57,6 +60,7 @@ function App() {
               <Route path="/Gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/fusion" element={<Fusion />} />
+              <Route path="/ideathon" element={<Ideathon />} />
             </Routes>
           </Layout>
         </BrowserRouter>
