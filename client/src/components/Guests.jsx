@@ -205,7 +205,7 @@ export default function TeamCarousel() {
         >
           <div className="inline-block mb-4">
             <span className="text-gray-400 text-sm font-semibold tracking-widest uppercase">
-              Our
+
             </span>
             <div className="h-0.5 bg-gradient-to-r from-transparent via-gray-600 to-transparent mt-2"></div>
           </div>

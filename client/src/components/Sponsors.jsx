@@ -94,8 +94,8 @@ export default function Sponsors() {
         <div className={`text-center mb-16 px-6 transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           <div className="inline-block mb-4">
             <span className="text-gray-400 text-sm font-semibold tracking-widest uppercase flex items-center gap-2 justify-center">
-              <Award size={16} />
-              Our
+
+
             </span>
             <div className="h-0.5 bg-gradient-to-r from-transparent via-gray-600 to-transparent mt-2"></div>
           </div>

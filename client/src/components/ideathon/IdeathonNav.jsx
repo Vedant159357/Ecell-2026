@@ -42,16 +42,26 @@ export default function IdeathonNav() {
                 </motion.div>
 
                 {/* E-Cell Button - Top Right */}
-                <Link to="/" className="pointer-events-auto">
-                    <motion.button
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-[#ED1C24] hover:bg-white text-white hover:text-black px-6 py-3 text-sm font-black uppercase tracking-wider transition-all"
-                    >
-                        E-Cell
-                    </motion.button>
+                {/* E-Cell Button - Top Right */}
+                <Link to="/" className="pointer-events-auto group">
+                    <div className="relative">
+                        {/* Double Boundary - Outer/Offset */}
+                        <div className="absolute inset-0 border border-white/20 translate-x-1 translate-y-1 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:border-[#ED1C24]/50" />
+
+                        {/* Main Button Container */}
+                        <div className="relative bg-black/50 backdrop-blur-sm border border-white/20 px-8 py-3 overflow-hidden transition-all duration-300 group-hover:border-[#ED1C24] group-hover:bg-[#ED1C24]/10">
+
+                            {/* Text "E-Cell" - Comes out on hover */}
+                            <div className="relative z-10 overflow-hidden">
+                                <span className="block text-white font-black uppercase tracking-widest text-sm transition-transform duration-500 group-hover:-translate-y-[150%]">
+                                    E-Cell
+                                </span>
+                                <span className="absolute inset-0 block text-[#ED1C24] font-black uppercase tracking-widest text-sm translate-y-[150%] transition-transform duration-500 group-hover:translate-y-0">
+                                    E-Cell
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </Link>
             </div>
         </motion.div>

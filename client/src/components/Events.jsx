@@ -184,13 +184,13 @@ export default function EventsSection() {
         <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           <div className="inline-block mb-4">
             <span className="text-gray-400 text-sm font-semibold tracking-widest uppercase">
-              What We Organize
+
             </span>
             <div className="h-0.5 bg-gradient-to-r from-transparent via-gray-600 to-transparent mt-2"></div>
           </div>
 
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 relative inline-block">
-            Our Events
+            Events
             <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
           </h2>
           <p className="text-gray-400 text-lg md:text-xl mt-8 max-w-2xl mx-auto">
