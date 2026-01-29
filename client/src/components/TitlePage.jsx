@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { client, urlFor } from "@/lib/sanity";
 import hero from "../assets/hero.avif";
@@ -110,13 +111,25 @@ export default function TitlePage() {
           )}
         </h1>
 
-        <div className="animate-fade-in-delay">
+        <div className="animate-fade-in-delay flex flex-col md:flex-row gap-6 justify-center items-center">
+          <Link
+            to="/ideathon"
+            className="inline-block bg-[#8B0000] text-white px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all w-full md:w-auto"
+          >
+            Ideathon
+          </Link>
           <a
             href="#about"
-            className="inline-block bg-white text-black px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all"
+            className="inline-block bg-white text-black px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all w-full md:w-auto"
           >
             Explore
           </a>
+          <Link
+            to="/econclave"
+            className="inline-block bg-[#d4af37] text-black px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all w-full md:w-auto"
+          >
+            Econclave
+          </Link>
         </div>
       </div>
 

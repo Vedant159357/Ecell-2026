@@ -553,8 +553,8 @@ const Fusion = () => {
                             <div className="text-gray-400 text-sm">
                                 © 2025 E-Cell SKNCOE. All rights reserved.
                             </div>
-                            <a href="mailto:ecellskncoe.mail@gmail.com" className="text-cyan-400 text-sm hover:text-cyan-300 transition-colors">
-                                ecellskncoe.mail@gmail.com
+                            <a href="mailto:iicecellskncoe@gmail.com" className="text-cyan-400 text-sm hover:text-cyan-300 transition-colors">
+                                iicecellskncoe@gmail.com
                             </a>
                         </div>
                         <div className="flex flex-wrap justify-center gap-6">

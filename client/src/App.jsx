@@ -12,6 +12,7 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Fusion from "./pages/Fusion/Fusion";
 import Ideathon from "./pages/Ideathon";
+import Econclave from "./pages/Econclave/Econclave";
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -27,7 +28,7 @@ function ScrollToTop() {
 // Layout component to handle conditional rendering of Navbar and Footer
 function Layout({ children }) {
   const location = useLocation();
-  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon';
+  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon' || location.pathname === '/econclave';
 
   return (
     <>
@@ -61,6 +62,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/fusion" element={<Fusion />} />
               <Route path="/ideathon" element={<Ideathon />} />
+              <Route path="/econclave" element={<Econclave />} />
             </Routes>
           </Layout>
         </BrowserRouter>

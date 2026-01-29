@@ -36,6 +36,7 @@ export default function Navbar() {
     { name: "Contact", to: "/Contact" },
     { name: "Ideathon", to: "/ideathon" },
     { name: "Fusion", to: "/fusion" },
+    { name: "Econclave", to: "/econclave" },
   ];
 
   const closeMenu = () => setIsMenuOpen(false);

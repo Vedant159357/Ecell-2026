@@ -17,8 +17,8 @@ export default function IdeathonFooter() {
                             </div>
                             <div>
                                 <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Official Contact Email</p>
-                                <a href="mailto:ecellskncoe.mail@gmail.com" className="text-white text-lg font-bold hover:text-[#ED1C24] transition-colors">
-                                    ecellskncoe.mail@gmail.com
+                                <a href="mailto:iicecellskncoe@gmail.com" className="text-white text-lg font-bold hover:text-[#ED1C24] transition-colors">
+                                    iicecellskncoe@gmail.com
                                 </a>
                             </div>
                         </div>
