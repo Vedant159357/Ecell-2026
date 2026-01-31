@@ -4,7 +4,7 @@ const sponsors = Array(8).fill(null); // Create 8 placeholders
 
 const Sponsors = () => {
     return (
-        <section className="py-40 bg-[var(--color-bg)] border-y border-[var(--color-surface)] overflow-hidden">
+        <section className="py-20 md:py-40 bg-[var(--color-bg)] border-y border-[var(--color-surface)] overflow-hidden">
             <div className="container mb-24 text-center">
                 <h2 className="text-4xl md:text-5xl mb-4 font-serif font-bold text-[var(--color-gold)] neon-text">Sponsors</h2>
                 <div className="h-1 w-24 bg-[var(--color-gold)] mx-auto opacity-70" />

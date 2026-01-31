@@ -33,7 +33,7 @@ const StatItem = ({ value, label, suffix = "+" }) => {
 
     return (
         <div ref={ref} className="text-center p-6 border border-[var(--color-surface)] bg-[var(--color-bg)] hover:border-[var(--color-gold)] transition-colors duration-300">
-            <div className="text-5xl md:text-6xl font-bold text-[var(--color-gold)] mb-2 font-serif">
+            <div className="text-4xl md:text-6xl font-bold text-[var(--color-gold)] mb-2 font-serif">
                 {count}{suffix}
             </div>
             <div className="text-sm uppercase tracking-widest text-[var(--color-slate)] font-semibold">

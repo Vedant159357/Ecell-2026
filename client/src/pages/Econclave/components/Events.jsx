@@ -146,10 +146,10 @@ const Events = () => {
                         {/* Tree Structure Container */}
                         <div className="relative flex flex-col items-center">
                             {/* Vertical line from Day 2 header */}
-                            <div className="w-[1px] h-8 bg-[var(--color-gold)] opacity-50 absolute -top-6 left-1/2 -translate-x-1/2"></div>
+                            <div className="hidden md:block w-[1px] h-8 bg-[var(--color-gold)] opacity-50 absolute -top-6 left-1/2 -translate-x-1/2"></div>
 
                             {/* Horizontal branching line */}
-                            <div className="w-[50%] h-[1px] bg-[var(--color-gold)] opacity-50 mb-8 relative">
+                            <div className="hidden md:block w-[50%] h-[1px] bg-[var(--color-gold)] opacity-50 mb-8 relative">
                                 {/* Vertical lines down to parallel events */}
                                 <div className="absolute left-0 top-0 w-[1px] h-8 bg-[var(--color-gold)] opacity-50"></div>
                                 <div className="absolute right-0 top-0 w-[1px] h-8 bg-[var(--color-gold)] opacity-50"></div>

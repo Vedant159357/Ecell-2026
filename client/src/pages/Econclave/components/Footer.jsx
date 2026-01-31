@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--color-gold)] opacity-[0.03] blur-[100px] pointer-events-none" />
 
             <div className="container relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 mb-12 lg:mb-16">
 
                     {/* Brand Column */}
                     <div className="lg:col-span-5 space-y-6">

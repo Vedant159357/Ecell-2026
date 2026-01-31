@@ -52,7 +52,7 @@ const AnimatedTitle = ({ text }) => {
     return (
         <div className="flex justify-center overflow-visible mb-6">
             <h1
-                className="text-7xl md:text-[10rem] font-bold tracking-tighter text-white leading-none drop-shadow-2xl flex select-none"
+                className="text-4xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter text-white leading-none drop-shadow-2xl flex select-none flex-wrap justify-center gap-x-1 md:gap-x-0"
                 style={{ color: '#ffffff' }}
             >
                 {text.split("").map((char, index) => (
@@ -132,12 +132,12 @@ const Hero = () => {
                     className="mb-6 flex flex-col items-center gap-2"
                 >
                     <span
-                        className="text-white/80 text-base md:text-lg tracking-[0.3em] uppercase font-light"
+                        className="text-white/80 text-sm md:text-lg tracking-[0.2em] md:tracking-[0.3em] uppercase font-light"
                         style={{ color: 'rgba(255, 255, 255, 0.8)' }}
                     >
                         IIC E-Cell SKNCOE Presents
                     </span>
-                    <span className="text-[var(--color-gold)] text-lg md:text-xl font-serif italic tracking-wider">
+                    <span className="text-[var(--color-gold)] text-base md:text-xl font-serif italic tracking-wider">
                         10th Edition
                     </span>
                 </motion.div>
