@@ -111,24 +111,34 @@ export default function TitlePage() {
           )}
         </h1>
 
-        <div className="animate-fade-in-delay flex flex-col md:flex-row gap-6 justify-center items-center">
+        <div className="animate-fade-in-delay flex flex-col md:flex-row flex-wrap gap-6 justify-center items-center">
+
+
+          {/* Ideathon - Crimson Glow */}
           <Link
             to="/ideathon"
-            className="inline-block bg-[#8B0000] text-white px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all w-full md:w-auto"
+            className="group relative px-8 py-3 rounded-full bg-black/40 border border-red-600/50 text-white font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-red-500 hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] w-full md:w-auto text-center overflow-hidden"
           >
-            Ideathon
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+            <span className="relative z-10 tracking-wide">Ideathon</span>
           </Link>
-          <a
-            href="#about"
-            className="inline-block bg-white text-black px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all w-full md:w-auto"
-          >
-            Explore
-          </a>
+
+          {/* Econclave - Golden Glow */}
           <Link
             to="/econclave"
-            className="inline-block bg-[#d4af37] text-black px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all w-full md:w-auto"
+            className="group relative px-8 py-3 rounded-full bg-black/40 border border-amber-500/50 text-white font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] w-full md:w-auto text-center overflow-hidden"
           >
-            Econclave
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+            <span className="relative z-10 tracking-wide">Econclave</span>
+          </Link>
+
+          {/* Internship Fair - Electric Blue Glow */}
+          <Link
+            to="/internship-fair"
+            className="group relative px-8 py-3 rounded-full bg-black/40 border border-blue-500/50 text-white font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] w-full md:w-auto text-center overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+            <span className="relative z-10 tracking-wide">Internship Fair</span>
           </Link>
         </div>
       </div>
