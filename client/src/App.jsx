@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import Fusion from "./pages/Fusion/Fusion";
 import Ideathon from "./pages/Ideathon";
 import Econclave from "./pages/Econclave/Econclave";
+import InternshipFair from "./pages/InternshipFair";
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -28,7 +29,7 @@ function ScrollToTop() {
 // Layout component to handle conditional rendering of Navbar and Footer
 function Layout({ children }) {
   const location = useLocation();
-  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon' || location.pathname === '/econclave';
+  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon' || location.pathname === '/econclave' || location.pathname === '/internship-fair';
 
   return (
     <>
@@ -42,15 +43,15 @@ function Layout({ children }) {
 }
 
 function App() {
-  // Skip global loader for Ideathon page
-  const isIdeathon = window.location.pathname === '/ideathon';
-  const [loading, setLoading] = useState(!isIdeathon);
+  // Show global loader ONLY for the home page
+  const isHome = window.location.pathname === '/';
+  const [loading, setLoading] = useState(isHome);
 
   return (
     <div className="bg-[#213448] min-h-screen">
-      {loading && <StartupLoader onComplete={() => setLoading(false)} />}
+      {loading && isHome && <StartupLoader onComplete={() => setLoading(false)} />}
 
-      {!loading && (
+      {(!loading || !isHome) && (
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
           <Layout>
@@ -63,6 +64,7 @@ function App() {
               <Route path="/fusion" element={<Fusion />} />
               <Route path="/ideathon" element={<Ideathon />} />
               <Route path="/econclave" element={<Econclave />} />
+              <Route path="/internship-fair" element={<InternshipFair />} />
             </Routes>
           </Layout>
         </BrowserRouter>
