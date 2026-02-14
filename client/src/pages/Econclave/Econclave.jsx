@@ -22,7 +22,7 @@ function Econclave() {
 
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] selection:bg-[var(--color-gold)] selection:text-black transition-colors duration-500 ease-in-out">
+      <div className="font-modern relative min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] selection:bg-[var(--color-gold)] selection:text-black transition-colors duration-500 ease-in-out">
         <TieInteraction />
         <AnimatePresence>
           {loading && <Loader onComplete={() => setLoading(false)} />}
