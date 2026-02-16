@@ -4,6 +4,7 @@ import StartupLoader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+<<<<<<< HEAD
 const Home = lazy(() => import("./pages/Home"));
 const Team = lazy(() => import("./pages/Team"));
 const Eachevent = lazy(() => import("./pages/Eachevent"));
@@ -13,6 +14,15 @@ const Fusion = lazy(() => import("./pages/Fusion/Fusion"));
 const Ideathon = lazy(() => import("./pages/Ideathon"));
 const Econclave = lazy(() => import("./pages/Econclave/Econclave"));
 const InternshipFair = lazy(() => import("./pages/InternshipFair"));
+=======
+import Home from "./pages/Home";
+import Team from "./pages/Team";
+
+import Eachevent from "./pages/Eachevent";
+import Gallery from "./pages/Gallery";
+import Contact from "./pages/Contact";
+import Fusion from "./pages/Fusion/Fusion";
+>>>>>>> cff47177eef15fee4d208eff51cccc8dfbbe6d4b
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -28,32 +38,31 @@ function ScrollToTop() {
 // Layout component to handle conditional rendering of Navbar and Footer
 function Layout({ children }) {
   const location = useLocation();
-  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon' || location.pathname === '/econclave' || location.pathname === '/internship-fair';
+  const isFusionPage = location.pathname === '/fusion';
 
   return (
     <>
-      {!isStandalonePage && <Navbar />}
-      <div className={!isStandalonePage ? "min-h-screen" : ""}>
+      {!isFusionPage && <Navbar />}
+      <div className={!isFusionPage ? "min-h-screen" : ""}>
         {children}
       </div>
-      {!isStandalonePage && <Footer />}
+      {!isFusionPage && <Footer />}
     </>
   );
 }
 
 function App() {
-  // Show global loader ONLY for the home page
-  const isHome = window.location.pathname === '/';
-  const [loading, setLoading] = useState(isHome);
+  const [loading, setLoading] = useState(true);
 
   return (
     <div className="bg-[#213448] min-h-screen">
-      {loading && isHome && <StartupLoader onComplete={() => setLoading(false)} />}
+      {loading && <StartupLoader onComplete={() => setLoading(false)} />}
 
-      {(!loading || !isHome) && (
+      {!loading && (
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
           <Layout>
+<<<<<<< HEAD
             <Suspense fallback={<StartupLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -67,6 +76,16 @@ function App() {
                 <Route path="/internship-fair" element={<InternshipFair />} />
               </Routes>
             </Suspense>
+=======
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Eachevent/:slug" element={<Eachevent />} />
+              <Route path="/Team" element={<Team />} />
+              <Route path="/Gallery" element={<Gallery />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/fusion" element={<Fusion />} />
+            </Routes>
+>>>>>>> cff47177eef15fee4d208eff51cccc8dfbbe6d4b
           </Layout>
         </BrowserRouter>
       )}

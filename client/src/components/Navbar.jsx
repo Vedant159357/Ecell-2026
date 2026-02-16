@@ -35,9 +35,12 @@ export default function Navbar() {
     { name: "Gallery", to: "/Gallery" },
     { name: "Contact", to: "/Contact" },
     { name: "Fusion", to: "/fusion" },
+<<<<<<< HEAD
     { name: "Internship Fair", to: "/internship-fair" },
     { name: "Ideathon", to: "/ideathon" },
     { name: "Econclave", to: "/econclave" },
+=======
+>>>>>>> cff47177eef15fee4d208eff51cccc8dfbbe6d4b
   ];
 
   const closeMenu = () => setIsMenuOpen(false);
