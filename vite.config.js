@@ -13,4 +13,16 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          animations: ['framer-motion'],
+          three: ['three', '@react-three/fiber', '@react-three/drei'],
+          utils: ['axios', 'lucide-react', 'clsx', 'tailwind-merge']
+        }
+      }
+    }
+  }
 });

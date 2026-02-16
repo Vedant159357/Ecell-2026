@@ -11,9 +11,6 @@ import Eachevent from "./pages/Eachevent";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Fusion from "./pages/Fusion/Fusion";
-import Ideathon from "./pages/Ideathon";
-import Econclave from "./pages/Econclave/Econclave";
-import InternshipFair from "./pages/InternshipFair";
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -29,29 +26,27 @@ function ScrollToTop() {
 // Layout component to handle conditional rendering of Navbar and Footer
 function Layout({ children }) {
   const location = useLocation();
-  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon' || location.pathname === '/econclave' || location.pathname === '/internship-fair';
+  const isFusionPage = location.pathname === '/fusion';
 
   return (
     <>
-      {!isStandalonePage && <Navbar />}
-      <div className={!isStandalonePage ? "min-h-screen" : ""}>
+      {!isFusionPage && <Navbar />}
+      <div className={!isFusionPage ? "min-h-screen" : ""}>
         {children}
       </div>
-      {!isStandalonePage && <Footer />}
+      {!isFusionPage && <Footer />}
     </>
   );
 }
 
 function App() {
-  // Show global loader ONLY for the home page
-  const isHome = window.location.pathname === '/';
-  const [loading, setLoading] = useState(isHome);
+  const [loading, setLoading] = useState(true);
 
   return (
     <div className="bg-[#213448] min-h-screen">
-      {loading && isHome && <StartupLoader onComplete={() => setLoading(false)} />}
+      {loading && <StartupLoader onComplete={() => setLoading(false)} />}
 
-      {(!loading || !isHome) && (
+      {!loading && (
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
           <Layout>
@@ -62,9 +57,6 @@ function App() {
               <Route path="/Gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/fusion" element={<Fusion />} />
-              <Route path="/ideathon" element={<Ideathon />} />
-              <Route path="/econclave" element={<Econclave />} />
-              <Route path="/internship-fair" element={<InternshipFair />} />
             </Routes>
           </Layout>
         </BrowserRouter>
