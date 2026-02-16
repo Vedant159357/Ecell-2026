@@ -111,7 +111,6 @@ export default function TitlePage() {
         </h1>
 
         <div className="animate-fade-in-delay">
-<<<<<<< HEAD
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="/econclave"
@@ -132,14 +131,6 @@ export default function TitlePage() {
               Internship Fair
             </a>
           </div>
-=======
-          <a
-            href="#about"
-            className="inline-block bg-white text-black px-10 py-4 rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-all"
-          >
-            Explore
-          </a>
->>>>>>> cff47177eef15fee4d208eff51cccc8dfbbe6d4b
         </div>
       </div>
 
