@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { client, urlFor } from "@/lib/sanity";
 import hero from "../assets/hero.avif";
@@ -111,35 +110,27 @@ export default function TitlePage() {
           )}
         </h1>
 
-        <div className="animate-fade-in-delay flex flex-col md:flex-row flex-wrap gap-6 justify-center items-center">
-
-
-          {/* Ideathon - Crimson Glow */}
-          <Link
-            to="/ideathon"
-            className="group relative px-8 py-3 rounded-full bg-black/40 border border-red-600/50 text-white font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-red-500 hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] w-full md:w-auto text-center overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
-            <span className="relative z-10 tracking-wide">Ideathon</span>
-          </Link>
-
-          {/* Econclave - Golden Glow */}
-          <Link
-            to="/econclave"
-            className="group relative px-8 py-3 rounded-full bg-black/40 border border-amber-500/50 text-white font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] w-full md:w-auto text-center overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
-            <span className="relative z-10 tracking-wide">Econclave</span>
-          </Link>
-
-          {/* Internship Fair - Electric Blue Glow */}
-          <Link
-            to="/internship-fair"
-            className="group relative px-8 py-3 rounded-full bg-black/40 border border-blue-500/50 text-white font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] w-full md:w-auto text-center overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
-            <span className="relative z-10 tracking-wide">Internship Fair</span>
-          </Link>
+        <div className="animate-fade-in-delay">
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="/econclave"
+              className="inline-block bg-yellow-500/20 text-yellow-100 border border-yellow-500/30 px-8 py-3 rounded-full font-semibold hover:bg-yellow-500/30 hover:scale-105 hover:shadow-lg transition-all backdrop-blur-sm"
+            >
+              E-Conclave
+            </a>
+            <a
+              href="/ideathon"
+              className="inline-block bg-red-600/20 text-red-100 border border-red-600/30 px-8 py-3 rounded-full font-semibold hover:bg-red-600/30 hover:scale-105 hover:shadow-lg transition-all backdrop-blur-sm"
+            >
+              Ideathon
+            </a>
+            <a
+              href="/internship-fair"
+              className="inline-block bg-blue-600/20 text-blue-100 border border-blue-600/30 px-8 py-3 rounded-full font-semibold hover:bg-blue-600/30 hover:scale-105 hover:shadow-lg transition-all backdrop-blur-sm"
+            >
+              Internship Fair
+            </a>
+          </div>
         </div>
       </div>
 

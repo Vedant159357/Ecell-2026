@@ -203,7 +203,7 @@ export default function AboutSection() {
           <div className="relative z-10 px-8 md:px-12 py-12">
             <div className="flex flex-col md:flex-row items-center justify-around gap-4">
               {(aboutData?.stats || [
-                { value: 10000, suffix: "+", label: "Event Participants" },
+                { value: 1000, suffix: "+", label: "Events Participated" },
                 { value: 10, suffix: "+", label: "Events Organized" },
                 { value: 150, suffix: "+", label: "Active Members" }
               ]).map((stat, idx) => (

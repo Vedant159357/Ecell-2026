@@ -1,19 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import StartupLoader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import Home from "./pages/Home";
-import Team from "./pages/Team";
-
-import Eachevent from "./pages/Eachevent";
-import Gallery from "./pages/Gallery";
-import Contact from "./pages/Contact";
-import Fusion from "./pages/Fusion/Fusion";
-import Ideathon from "./pages/Ideathon";
-import Econclave from "./pages/Econclave/Econclave";
-import InternshipFair from "./pages/InternshipFair";
+const Home = lazy(() => import("./pages/Home"));
+const Team = lazy(() => import("./pages/Team"));
+const Eachevent = lazy(() => import("./pages/Eachevent"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Fusion = lazy(() => import("./pages/Fusion/Fusion"));
+const Ideathon = lazy(() => import("./pages/Ideathon"));
+const Econclave = lazy(() => import("./pages/Econclave/Econclave"));
+const InternshipFair = lazy(() => import("./pages/InternshipFair"));
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -55,17 +54,19 @@ function App() {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
           <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/Eachevent/:slug" element={<Eachevent />} />
-              <Route path="/Team" element={<Team />} />
-              <Route path="/Gallery" element={<Gallery />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/fusion" element={<Fusion />} />
-              <Route path="/ideathon" element={<Ideathon />} />
-              <Route path="/econclave" element={<Econclave />} />
-              <Route path="/internship-fair" element={<InternshipFair />} />
-            </Routes>
+            <Suspense fallback={<StartupLoader />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/Eachevent/:slug" element={<Eachevent />} />
+                <Route path="/Team" element={<Team />} />
+                <Route path="/Gallery" element={<Gallery />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/fusion" element={<Fusion />} />
+                <Route path="/ideathon" element={<Ideathon />} />
+                <Route path="/econclave" element={<Econclave />} />
+                <Route path="/internship-fair" element={<InternshipFair />} />
+              </Routes>
+            </Suspense>
           </Layout>
         </BrowserRouter>
       )}
