@@ -23,5 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
+
 # Env
 .env
+
+# Ignored build artifacts and nested folders
+ecell_build.zip
+client/
+server/
+studio/
