@@ -214,8 +214,8 @@ export default function Footer() {
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-white/10"></div>
-        <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-white/10"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-white/10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-white/10 pointer-events-none"></div>
       </div>
 
       {/* Bottom Accent Line */}

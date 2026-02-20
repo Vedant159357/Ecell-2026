@@ -240,15 +240,28 @@ export default function Team() {
               </div>
 
               {coreTeam.length > 8 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
-                  {coreTeam.slice(8, coreTeam.length).map((member, index) => (
-                    <div key={member._id || member.id} className="flex justify-center">
-                      <div className="w-full max-w-[280px] sm:max-w-xs">
-                        <TeamMemberCard member={member} index={index + 8} />
-                      </div>
+                <>
+                  {coreTeam.length > 13 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-6">
+                      {coreTeam.slice(8, coreTeam.length - 5).map((member, index) => (
+                        <div key={member._id || member.id} className="flex justify-center">
+                          <div className="w-full max-w-[280px] sm:max-w-xs">
+                            <TeamMemberCard member={member} index={index + 8} />
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 max-w-6xl mx-auto">
+                    {coreTeam.slice(Math.max(8, coreTeam.length - 5), coreTeam.length).map((member, index) => (
+                      <div key={member._id || member.id} className="flex justify-center">
+                        <div className="w-full max-w-[280px] sm:max-w-xs">
+                          <TeamMemberCard member={member} index={index + Math.max(8, coreTeam.length - 5)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
               )}
             </>
           ) : !loading && (

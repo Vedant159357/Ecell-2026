@@ -62,7 +62,7 @@ export default function Navbar() {
           <img
             src={settings?.logo ? urlFor(settings.logo).url() : logo}
             alt="Logo"
-            className="h-14 md:h-24 w-auto cursor-pointer"
+            className="h-20 md:h-32 w-auto cursor-pointer"
           />
         </NavLink>
       </div>

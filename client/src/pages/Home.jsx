@@ -25,7 +25,7 @@ export default function Home() {
   }, [location]);
 
   return (
-    <>
+    <div className="font-playfair">
       <Chatbot />
 
       {/* HERO / TITLE */}
@@ -57,6 +57,6 @@ export default function Home() {
       <section id="alumni">
         <Alumni />
       </section>
-    </>
+    </div>
   );
 }

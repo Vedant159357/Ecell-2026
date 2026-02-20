@@ -57,7 +57,7 @@ export default function IdeathonFooter() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{ y: -3, color: "#ED1C24" }}
-                                className="text-white/20 transition-colors"
+                                className="text-white transition-colors"
                             >
                                 <Icon className="w-6 h-6" />
                             </motion.a>

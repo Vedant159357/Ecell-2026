@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import scheduleBg from '../assets/schedule-bg.png';
 
 const day1Events = [
@@ -16,7 +17,7 @@ const day2Events = [
     { time: "05:00 PM", title: "Valedictory & Awards", location: "Auditorium", description: "Closing Ceremony & Prize Distribution" }
 ];
 
-const ChequeCard = ({ event, index, day }) => {
+const ChequeCard = ({ event, index, day, action }) => {
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.1,
@@ -80,10 +81,15 @@ const ChequeCard = ({ event, index, day }) => {
                         <div className="space-y-4">
                             <div className="flex flex-col gap-1">
                                 <span className="text-[var(--color-slate)] text-[10px] font-bold whitespace-nowrap tracking-wider">PAY TO THE EVENT OF</span>
-                                <div className="border-b border-[var(--color-text-muted)] relative pb-1">
-                                    <span className="text-3xl font-serif font-bold text-white group-hover:text-[var(--color-gold)] transition-colors">
+                                <div className="border-b border-[var(--color-text-muted)] relative pb-1 flex flex-wrap justify-between items-end gap-2">
+                                    <span className="text-2xl md:text-3xl font-serif font-bold text-white group-hover:text-[var(--color-gold)] transition-colors">
                                         {event.title}
                                     </span>
+                                    {action && (
+                                        <div className="mb-1">
+                                            {action}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="flex flex-col gap-1">
@@ -206,7 +212,15 @@ const Events = () => {
                                 <h3 className="text-3xl font-serif text-[var(--color-gold)] mx-6">Day 01</h3>
                                 <div className="h-[1px] bg-[var(--color-gold)] w-12 opacity-50"></div>
                             </div>
-                            <span className="text-[var(--color-text-muted)] text-xl font-serif mt-2">Ideathon</span>
+                            <div className="flex items-center gap-4 mt-2">
+                                <span className="text-[var(--color-text-muted)] text-xl font-serif">Ideathon</span>
+                                <Link
+                                    to="/ideathon"
+                                    className="text-[var(--color-gold)] border border-[var(--color-gold)] px-3 py-1 text-xs font-bold uppercase tracking-wider hover:bg-[var(--color-gold)] hover:text-black transition-colors"
+                                >
+                                    View Details
+                                </Link>
+                            </div>
                         </div>
                         {day1Events.map((event, index) => (
                             <ChequeCard key={`day1-${index}`} event={event} index={index} day="01" />
@@ -259,6 +273,14 @@ const Events = () => {
                                         }}
                                         index={1}
                                         day="02"
+                                        action={
+                                            <Link
+                                                to="/internship-fair"
+                                                className="text-[var(--color-gold)] border border-[var(--color-gold)] px-3 py-1 text-xs font-bold uppercase tracking-wider hover:bg-[var(--color-gold)] hover:text-black transition-colors mb-1"
+                                            >
+                                                Register
+                                            </Link>
+                                        }
                                     />
                                     {/* Vertical line down from Internship Fair (Desktop) */}
                                     <div className="hidden md:block w-[1px] h-8 bg-[var(--color-gold)] opacity-50 mx-auto mt-0"></div>

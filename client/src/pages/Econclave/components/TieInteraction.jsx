@@ -29,7 +29,7 @@ const TieInteraction = () => {
     };
 
     return (
-        <div className="fixed -top-2 right-6 md:right-16 z-50 flex flex-col items-center scale-75 md:scale-100 origin-top">
+        <div className="absolute -top-2 right-6 md:right-16 z-50 flex flex-col items-center scale-75 md:scale-100 origin-top">
 
             {/* The Knot (Anchored at the top) */}
             <div className="relative z-20" style={{ filter: 'drop-shadow(0 0 8px var(--color-gold))' }}>

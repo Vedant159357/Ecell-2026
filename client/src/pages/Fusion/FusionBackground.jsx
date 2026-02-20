@@ -5,7 +5,14 @@ import * as random from 'maath/random';
 
 const StarField = (props) => {
     const ref = useRef();
-    const sphere = random.inSphere(new Float32Array(5000), { radius: 1.5 });
+    const sphere = useMemo(() => {
+        const data = random.inSphere(new Float32Array(5001), { radius: 1.5 });
+        // Safety check to ensure no NaNs
+        for (let i = 0; i < data.length; i++) {
+            if (isNaN(data[i])) data[i] = 0;
+        }
+        return data;
+    }, []);
 
     useFrame((state, delta) => {
         ref.current.rotation.x -= delta / 10;

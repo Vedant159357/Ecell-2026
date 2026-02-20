@@ -33,7 +33,7 @@ const Navigation = () => {
             {/* Back to Ecell Button */}
             <Link
                 to="/"
-                className="fixed top-8 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-32 z-50 px-6 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium hover:bg-white hover:text-black transition-all duration-300 mix-blend-difference"
+                className="fixed top-8 right-24 md:right-32 z-50 px-6 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium hover:bg-white hover:text-black transition-all duration-300 mix-blend-difference"
             >
                 Ecell
             </Link>
