@@ -64,10 +64,10 @@ export default function Footer() {
     href: link.url,
     label: link.platform
   })) || [
-      { icon: Linkedin, href: 'https://www.linkedin.com/company/ecell-skncoe', label: 'LinkedIn' },
-      { icon: Instagram, href: 'https://www.instagram.com/ecell_skncoe', label: 'Instagram' },
-      { icon: Twitter, href: 'https://twitter.com/ecell_skncoe', label: 'Twitter' },
-      { icon: Facebook, href: 'https://www.facebook.com/ecell.skncoe', label: 'Facebook' }
+      { icon: Linkedin, href: 'https://www.linkedin.com/company/iic-ecell-skncoe-official/', label: 'LinkedIn' },
+      { icon: Instagram, href: 'https://www.instagram.com/iic_ecellskncoe/', label: 'Instagram' },
+      { icon: Twitter, href: 'https://x.com/EcellSkncoe50', label: 'Twitter' },
+      { icon: Facebook, href: 'https://www.facebook.com/ecellskncoe/#', label: 'Facebook' }
     ];
 
   return (

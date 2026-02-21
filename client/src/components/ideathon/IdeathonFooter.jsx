@@ -46,8 +46,8 @@ export default function IdeathonFooter() {
                     <div className="flex gap-6">
                         <p className="sr-only">Official Social Media Handles</p>
                         {[
-                            { Icon: Linkedin, href: "https://www.linkedin.com/company/e-cell-skncoe-pune" },
-                            { Icon: Instagram, href: "https://www.instagram.com/iic_ecellskncoe" },
+                            { Icon: Linkedin, href: "https://www.linkedin.com/company/iic-ecell-skncoe-official/" },
+                            { Icon: Instagram, href: "https://www.instagram.com/iic_ecellskncoe/" },
                             { Icon: Twitter, href: "https://x.com/EcellSkncoe50" },
                             { Icon: Youtube, href: "https://www.youtube.com/channel/UCRQcbHIFApOqtkZ10PgggYA" }
                         ].map(({ Icon, href }, i) => (
