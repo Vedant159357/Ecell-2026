@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const InternshipLoader = ({ onComplete }) => {
-    const [textIndex, setTextIndex] = useState(0);
-    const loadingTexts = [
-        "Screening Profiles...",
-        "Matching Domains...",
-        "Shortlisting Candidates...",
-        "Preparing Opportunities..."
-    ];
 
     useEffect(() => {
-        // Rotate text every 1.5s
-        const textInterval = setInterval(() => {
-            setTextIndex(prev => (prev + 1) % loadingTexts.length);
-        }, 1500);
-
-        // Finish loading after showing all texts (approx 6 seconds)
+        // Finish loading after approx 2 seconds
         const completionTimer = setTimeout(() => {
             onComplete();
-        }, 6000);
+        }, 2000);
 
         return () => {
-            clearInterval(textInterval);
             clearTimeout(completionTimer);
         };
     }, [onComplete]);
@@ -114,21 +101,7 @@ const InternshipLoader = ({ onComplete }) => {
                     </motion.p>
                 </div>
 
-                {/* Changing Loader Text */}
-                <div className="h-8 overflow-hidden">
-                    <AnimatePresence mode='wait'>
-                        <motion.p
-                            key={textIndex}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.3 }}
-                            className="text-blue-300 font-mono text-sm uppercase tracking-widest"
-                        >
-                            {loadingTexts[textIndex]}
-                        </motion.p>
-                    </AnimatePresence>
-                </div>
+
 
             </div>
 

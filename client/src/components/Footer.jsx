@@ -136,7 +136,7 @@ export default function Footer() {
             </h3>
             <div className="space-y-4">
               <a
-                href={`mailto:${settings?.contact?.email || 'ecell@skncoe.ac.in'}`}
+                href={`mailto:${settings?.contact?.email || 'iicecellskncoe@gmail.com'}`}
                 className="flex items-start gap-3 text-gray-300 hover:text-white transition-colors duration-300 group"
               >
                 <div className="flex-shrink-0 w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
@@ -144,7 +144,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Email</div>
-                  <div className="font-semibold">{settings?.contact?.email || 'ecell@skncoe.ac.in'}</div>
+                  <div className="font-semibold">{settings?.contact?.email || 'iicecellskncoe@gmail.com'}</div>
                 </div>
               </a>
 

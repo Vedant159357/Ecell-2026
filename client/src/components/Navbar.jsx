@@ -103,7 +103,7 @@ export default function Navbar() {
 
       {/* SIDEBAR */}
       <div
-        className={`fixed top-0 right-0 w-80 h-full z-50 transition-transform duration-300 ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 w-80 h-full z-50 transition-transform duration-300 overflow-y-auto ${isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         style={{
           background: "rgba(0, 0, 0, 0.8)",
