@@ -8,6 +8,7 @@ import Guests from "@/components/Guests";
 import Sponsors from "@/components/Sponsors";
 import Chatbot from "@/components/Chatbot";
 import Alumni from "@/components/Alumni";
+import SubscriptionPopup from "@/components/SubscriptionPopup";
 
 export default function Home() {
   const location = useLocation();
@@ -25,8 +26,9 @@ export default function Home() {
   }, [location]);
 
   return (
-    <>
+    <div className="font-playfair">
       <Chatbot />
+      <SubscriptionPopup />
 
       {/* HERO / TITLE */}
       <section id="home">
@@ -57,6 +59,6 @@ export default function Home() {
       <section id="alumni">
         <Alumni />
       </section>
-    </>
+    </div>
   );
 }

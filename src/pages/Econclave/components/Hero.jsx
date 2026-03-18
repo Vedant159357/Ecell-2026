@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
+import TieInteraction from './TieInteraction';
 
 const quotes = [
     "When you’re backed into a corner, you don’t fold. You negotiate.",
@@ -106,6 +107,10 @@ const Hero = () => {
 
     return (
         <section ref={ref} className="relative h-screen flex flex-col justify-center items-center overflow-hidden">
+
+            {/* The Tie - Now absolute inside relative Hero */}
+            <TieInteraction />
+
             {/* Cinematic Background */}
             <motion.div
                 style={{ y }}

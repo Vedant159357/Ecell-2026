@@ -35,6 +35,9 @@ export default function Navbar() {
     { name: "Gallery", to: "/Gallery" },
     { name: "Contact", to: "/Contact" },
     { name: "Fusion", to: "/fusion" },
+    { name: "Internship Fair", to: "/internship-fair" },
+    { name: "Ideathon", to: "/ideathon" },
+    { name: "Econclave", to: "/econclave" },
   ];
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -59,7 +62,7 @@ export default function Navbar() {
           <img
             src={settings?.logo ? urlFor(settings.logo).url() : logo}
             alt="Logo"
-            className="h-14 md:h-24 w-auto cursor-pointer"
+            className="h-20 md:h-32 w-auto cursor-pointer"
           />
         </NavLink>
       </div>
@@ -100,28 +103,46 @@ export default function Navbar() {
 
       {/* SIDEBAR */}
       <div
-        className={`fixed top-0 right-0 w-80 h-full z-50 transition-transform duration-300 ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 w-80 h-full z-50 transition-transform duration-300 overflow-y-auto ${isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         style={{
-          background: "linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%)",
+          background: "rgba(0, 0, 0, 0.8)",
+          backdropFilter: "blur(12px)",
+          borderLeft: "1px solid rgba(255, 255, 255, 0.1)"
         }}
       >
         <div className="flex justify-between items-center p-6 border-b border-white/10">
-          <h2 className="text-2xl font-bold text-white">ECell</h2>
-          <button onClick={closeMenu}>
+          <h2 className="text-2xl font-bold text-white tracking-wider">ECell</h2>
+          <button onClick={closeMenu} className="hover:rotate-90 transition-transform duration-300">
             <X size={24} className="text-white" />
           </button>
         </div>
 
-        <nav className="p-6">
-          {menuItems.map((item, i) =>
-            item.hash ? (
+        <nav className="p-6 flex flex-col gap-2">
+          {menuItems.map((item, i) => {
+            let itemColor = "text-gray-300";
+            let hoverColor = "group-hover:text-white";
+
+            if (item.name === "Econclave") {
+              itemColor = "text-yellow-400";
+              hoverColor = "group-hover:text-yellow-300";
+            } else if (item.name === "Ideathon") {
+              itemColor = "text-red-500";
+              hoverColor = "group-hover:text-red-400";
+            } else if (item.name === "Internship Fair") {
+              itemColor = "text-blue-500";
+              hoverColor = "group-hover:text-blue-400";
+            }
+
+            const commonClasses = `block w-full text-left py-3 px-4 rounded-lg transition-all duration-300 hover:bg-white/5 group ${itemColor}`;
+
+            return item.hash ? (
               <button
                 key={i}
                 onClick={() => handleHashClick(item.hash)}
-                className="block w-full text-left py-3 px-4 rounded-lg text-white hover:bg-white/10"
+                className={commonClasses}
               >
-                {item.name}
+                <span className={`font-medium ${hoverColor} transition-colors`}>{item.name}</span>
               </button>
             ) : (
               <NavLink
@@ -129,16 +150,13 @@ export default function Navbar() {
                 to={item.to}
                 onClick={closeMenu}
                 className={({ isActive }) =>
-                  `block py-3 px-4 rounded-lg ${isActive
-                    ? "bg-white/20 text-white"
-                    : "text-white hover:bg-white/10"
-                  }`
+                  `${commonClasses} ${isActive ? "bg-white/10 text-white" : ""}`
                 }
               >
-                {item.name}
+                <span className={`font-medium ${hoverColor} transition-colors`}>{item.name}</span>
               </NavLink>
-            )
-          )}
+            );
+          })}
         </nav>
       </div>
     </>

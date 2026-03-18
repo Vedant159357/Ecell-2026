@@ -553,13 +553,13 @@ const Fusion = () => {
                             <div className="text-gray-400 text-sm">
                                 © 2025 E-Cell SKNCOE. All rights reserved.
                             </div>
-                            <a href="mailto:ecellskncoe.mail@gmail.com" className="text-cyan-400 text-sm hover:text-cyan-300 transition-colors">
-                                ecellskncoe.mail@gmail.com
+                            <a href="mailto:iicecellskncoe@gmail.com" className="text-cyan-400 text-sm hover:text-cyan-300 transition-colors">
+                                iicecellskncoe@gmail.com
                             </a>
                         </div>
                         <div className="flex flex-wrap justify-center gap-6">
-                            <a href="https://www.instagram.com/iic_ecellskncoe" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">Instagram</a>
-                            <a href="https://www.linkedin.com/company/e-cell-skncoe-pune" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">LinkedIn</a>
+                            <a href="https://www.instagram.com/iic_ecellskncoe/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">Instagram</a>
+                            <a href="https://www.linkedin.com/company/iic-ecell-skncoe-official/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">LinkedIn</a>
                             <a href="https://x.com/EcellSkncoe50" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">Twitter (X)</a>
                             <a href="https://www.youtube.com/channel/UCRQcbHIFApOqtkZ10PgggYA" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-500 transition-colors">YouTube</a>
                         </div>

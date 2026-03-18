@@ -64,10 +64,10 @@ export default function Footer() {
     href: link.url,
     label: link.platform
   })) || [
-      { icon: Linkedin, href: 'https://www.linkedin.com/company/ecell-skncoe', label: 'LinkedIn' },
-      { icon: Instagram, href: 'https://www.instagram.com/ecell_skncoe', label: 'Instagram' },
-      { icon: Twitter, href: 'https://twitter.com/ecell_skncoe', label: 'Twitter' },
-      { icon: Facebook, href: 'https://www.facebook.com/ecell.skncoe', label: 'Facebook' }
+      { icon: Linkedin, href: 'https://www.linkedin.com/company/iic-ecell-skncoe-official/', label: 'LinkedIn' },
+      { icon: Instagram, href: 'https://www.instagram.com/iic_ecellskncoe/', label: 'Instagram' },
+      { icon: Twitter, href: 'https://x.com/EcellSkncoe50', label: 'Twitter' },
+      { icon: Facebook, href: 'https://www.facebook.com/ecellskncoe/#', label: 'Facebook' }
     ];
 
   return (
@@ -136,7 +136,7 @@ export default function Footer() {
             </h3>
             <div className="space-y-4">
               <a
-                href={`mailto:${settings?.contact?.email || 'ecell@skncoe.ac.in'}`}
+                href={`mailto:${settings?.contact?.email || 'iicecellskncoe@gmail.com'}`}
                 className="flex items-start gap-3 text-gray-300 hover:text-white transition-colors duration-300 group"
               >
                 <div className="flex-shrink-0 w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
@@ -144,12 +144,12 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Email</div>
-                  <div className="font-semibold">{settings?.contact?.email || 'ecell@skncoe.ac.in'}</div>
+                  <div className="font-semibold">{settings?.contact?.email || 'iicecellskncoe@gmail.com'}</div>
                 </div>
               </a>
 
               <a
-                href={`tel:${settings?.contact?.phone || '+919876543210'}`}
+                href={`tel:${settings?.contact?.phone || '7385077573'}`}
                 className="flex items-start gap-3 text-gray-300 hover:text-white transition-colors duration-300 group"
               >
                 <div className="flex-shrink-0 w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
@@ -157,7 +157,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Phone</div>
-                  <div className="font-semibold">{settings?.contact?.phone || '+91 98765 43210'}</div>
+                  <div className="font-semibold">{settings?.contact?.phone || '+91 73850 77573'}</div>
                 </div>
               </a>
 
@@ -214,8 +214,8 @@ export default function Footer() {
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-white/10"></div>
-        <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-white/10"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-white/10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-white/10 pointer-events-none"></div>
       </div>
 
       {/* Bottom Accent Line */}

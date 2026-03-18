@@ -1,6 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import StartupLoader from "./components/Loader";
+import StartupLoader, { PageLoader } from "./components/Loader";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -28,7 +28,12 @@ function ScrollToTop() {
 // Layout component to handle conditional rendering of Navbar and Footer
 function Layout({ children }) {
   const location = useLocation();
-  const isStandalonePage = location.pathname === '/fusion' || location.pathname === '/ideathon' || location.pathname === '/econclave' || location.pathname === '/internship-fair';
+  const isStandalonePage = [
+    '/fusion',
+    '/econclave',
+    '/ideathon',
+    '/internship-fair'
+  ].includes(location.pathname);
 
   return (
     <>
@@ -54,7 +59,7 @@ function App() {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
           <Layout>
-            <Suspense fallback={<StartupLoader />}>
+            <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Eachevent/:slug" element={<Eachevent />} />

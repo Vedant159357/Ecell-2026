@@ -9,11 +9,47 @@ const Speakers = () => {
     useEffect(() => {
         const fetchGuests = async () => {
             try {
-                // Fetch only 6 guests
-                const query = '*[_type == "guest"][0...6]';
+                // Fetch all guests to ensure we can find the specific ones requested
+                const query = '*[_type == "guest"]';
                 const data = await client.fetch(query);
+
                 if (data) {
-                    setGuests(data);
+                    // Find specific guests by name (case-insensitive)
+                    const pranit = data.find(g => g.name && g.name.toLowerCase().includes("pranit"));
+                    const ashish = data.find(g => g.name && g.name.toLowerCase().includes("ashish"));
+
+                    // Filter out the specific guests to get the "others" list
+                    const others = data.filter(g =>
+                        (!g.name || !g.name.toLowerCase().includes("pranit")) &&
+                        (!g.name || !g.name.toLowerCase().includes("ashish"))
+                    );
+
+                    const reorderedGuests = [];
+
+                    // Position 1: Pranit
+                    if (pranit) reorderedGuests.push(pranit);
+
+                    // Position 2 & 3: Fill with others (need 2 spots filled before index 3/4th pos)
+                    // Note: If Pranit is missing, we still fill from start. Loop condition handles logic dynamically.
+                    let othersIndex = 0;
+
+                    // We want Ashish at index 3 (4th item). So we need 3 items before him.
+                    // If Pranit is there, we need 2 more. If Pranit is NOT there, we need 3 more.
+                    // The target index for Ashish is 3.
+
+                    while (reorderedGuests.length < 3 && othersIndex < others.length) {
+                        reorderedGuests.push(others[othersIndex++]);
+                    }
+
+                    // Position 4: Ashish
+                    if (ashish) reorderedGuests.push(ashish);
+
+                    // Fill the rest until we have 6 guests
+                    while (reorderedGuests.length < 6 && othersIndex < others.length) {
+                        reorderedGuests.push(others[othersIndex++]);
+                    }
+
+                    setGuests(reorderedGuests);
                 }
             } catch (error) {
                 console.error("Error fetching guests:", error);

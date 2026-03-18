@@ -23,7 +23,7 @@ export default function StartupLoader({ onComplete }) {
       }, 1200);
 
       const completeTimer = setTimeout(() => {
-        onComplete();
+        if (onComplete) onComplete();
       }, 2000);
 
       return () => {
@@ -74,7 +74,7 @@ export function BlinkingBulb() {
       <div className="absolute inset-0 animate-pulse">
         <div className="w-32 h-32 bg-[#434343]/40 rounded-full blur-3xl"></div>
       </div>
-      
+
       {/* Bulb SVG */}
       <div className="relative">
         <svg
@@ -92,7 +92,7 @@ export function BlinkingBulb() {
             fill="currentColor"
             className="text-gray-300 transition-colors duration-300"
           />
-          
+
           {/* Inner glow */}
           <ellipse
             cx="50"
@@ -102,7 +102,7 @@ export function BlinkingBulb() {
             fill="currentColor"
             className="text-white/30"
           />
-          
+
           {/* Bulb Base */}
           <rect
             x="44"
@@ -136,7 +136,7 @@ export function BlinkingBulb() {
             fill="currentColor"
             className="text-gray-700"
           />
-          
+
           {/* Light rays */}
           <g className="opacity-70">
             <line x1="50" y1="8" x2="50" y2="2" stroke="currentColor" strokeWidth="3" className="text-gray-400" />
@@ -164,6 +164,17 @@ export function BlinkingBulb() {
           animation: blink 1.5s ease-in-out infinite;
         }
       `}</style>
+    </div>
+  );
+}
+
+// ============================================
+// PAGE LOADER (Simple spinner for Suspense fallback)
+// ============================================
+export function PageLoader() {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#213448]">
+      <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
     </div>
   );
 }

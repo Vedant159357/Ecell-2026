@@ -68,8 +68,8 @@ const Footer = () => {
                         <h3 className="text-white font-serif text-xl tracking-wide border-l-2 border-[var(--color-gold)] pl-4">Follow Us</h3>
                         <div className="flex flex-col gap-4 pl-4">
                             {[
-                                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/iic_ecellskncoe" },
-                                { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/e-cell-skncoe-pune" },
+                                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/iic_ecellskncoe/" },
+                                { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/iic-ecell-skncoe-official/" },
                                 { icon: Twitter, label: "Twitter (X)", href: "https://x.com/EcellSkncoe50" },
                                 { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/channel/UCRQcbHIFApOqtkZ10PgggYA" }
                             ].map((social, index) => (
