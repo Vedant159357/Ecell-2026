@@ -2,11 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { Award } from 'lucide-react';
 import { client, urlFor } from "@/lib/sanity";
 
+const staticEconclaveSponsors = [
+  "ASHTAPAILU.jpeg",
+  "Alpha.jpeg",
+  "B Square Prints & Gifts.jpeg",
+  "ClintHunt SkiLiX.jpeg",
+  "Elements Decor.jpeg",
+  "GymKhana Kothrud.jpeg",
+  "MITCON.jpeg",
+  "Mahatma Gandhi Cancer Hospital.jpeg",
+  "Pops Kitchen.jpeg",
+  "SFL.jpeg",
+  "Sinhgad Sports Association.jpeg",
+  "Unique Trading.jpeg",
+  "Vyapar Sankool.jpeg",
+  "Wet n Joy.jpeg",
+  "Z+ Security.jpeg"
+].map((filename, i) => ({
+  _id: `static-econclave-${i}`,
+  name: filename.replace(".jpeg", ""),
+  image: `/Econclave-2026/${filename}`,
+  category: "partner"
+}));
+
+
 const SponsorCard = ({ sponsor }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Specific check for techvision to fit it correctly
-  const isTechvision = sponsor.name?.toLowerCase().includes("techvision");
+  // Specific check to fit certain logos correctly without cropping
+  const nameLower = sponsor.name?.toLowerCase() || "";
+  const needsContain = nameLower.includes("techvision") || 
+                       ["clinthunt", "wet n joy", "mitcon"].some(n => nameLower.includes(n));
 
   return (
     <div
@@ -17,12 +43,12 @@ const SponsorCard = ({ sponsor }) => {
       {/* Circular Image */}
       <div className="relative mb-4 group">
         <div className={`w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-[#434343]/30 transition-all duration-500 ${isHovered ? 'border-[#434343] scale-110 shadow-2xl shadow-[#434343]/50' : ''
-          } ${isTechvision ? 'bg-white' : ''}`}> {/* Add white background for techvision if needed */}
+          } ${needsContain ? 'bg-white' : ''}`}> {/* Add white background if needed */}
           <img
             src={sponsor.logo && sponsor.logo.asset ? urlFor(sponsor.logo).url() : sponsor.image}
             alt={sponsor.name}
             className={`w-full h-full transition-all duration-700 ${isHovered ? 'scale-110 rotate-6' : 'scale-100 rotate-0'
-              } ${isTechvision ? 'object-contain p-2' : 'object-cover'}`} // Use contain for techvision
+              } ${needsContain ? 'object-contain p-2' : 'object-cover'}`} // Use contain for specific logos
           />
         </div>
 
@@ -54,9 +80,8 @@ export default function Sponsors() {
       try {
         const query = '*[_type == "sponsor"]';
         const data = await client.fetch(query);
-        if (data && data.length > 0) {
-          setSponsorsData(data);
-        }
+        const combinedData = [...(data || []), ...staticEconclaveSponsors];
+        setSponsorsData(combinedData);
       } catch (error) {
         console.error("Error fetching sponsors:", error);
       } finally {
